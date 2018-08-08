@@ -1,5 +1,6 @@
 package com.ysc.device.service.controller;
 
+import com.ysc.device.service.aop.log.annotation.ControllerLogger;
 import com.ysc.device.service.domain.entities.Users;
 import com.ysc.device.service.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class TestBootController {
         users.setPhone("110");
         testService.redisInsert(users);
         return users;
+    }
+
+    @ControllerLogger
+    @RequestMapping("/doError")
+    public Object error() {
+        return 1 / 0;
     }
 }
