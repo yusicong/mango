@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * Created by IDEA
  * 日志切面
- * @author : yusicng
+ * @Author : yusicng
  * @Date : 2018/8/8.
  * @Time : 14:38
  */
@@ -41,7 +41,6 @@ public class LogAspect {
         log.info("HTTP_METHOD : {}" , request.getMethod());
         log.info("IP : {}" , request.getRemoteAddr());
         log.info("CLASS_METHOD : {}" , joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        log.info("ARGS : {}" , Arrays.toString(joinPoint.getArgs()));
 
     }
 
