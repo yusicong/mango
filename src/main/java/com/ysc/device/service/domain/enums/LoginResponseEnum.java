@@ -3,13 +3,12 @@ package com.ysc.device.service.domain.enums;
 
 
 
-public enum AntennaChannelEnum implements DictEnum {
+public enum LoginResponseEnum implements DictEnum {
 
-    /**
-     * 天线通道 0：内置，1：外置
-     */
-    IN(0, "内置"),
-    OUT(1, "外置");
+    STATUS_1(10001, "登录成功"),
+    STATUS_2(20001, "登录失败，用户不存在"),
+    STATUS_3(20002, "登录失败，密码错误"),
+    STATUS_4(20003, "登录失败，登陆超时");
     /**
      * 获取值
      */
@@ -21,7 +20,7 @@ public enum AntennaChannelEnum implements DictEnum {
     private String text;
 
 
-    AntennaChannelEnum(Integer value, String text) {
+    LoginResponseEnum(Integer value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -37,7 +36,7 @@ public enum AntennaChannelEnum implements DictEnum {
     }
 
     public static String getText(Integer value) {
-        for (AntennaChannelEnum type : AntennaChannelEnum.values()) {
+        for (LoginResponseEnum type : LoginResponseEnum.values()) {
             if (value.equals(type.getValue())) {
                 return type.getText();
             }
@@ -45,8 +44,8 @@ public enum AntennaChannelEnum implements DictEnum {
         return "--";
     }
 
-    public static AntennaChannelEnum of(Integer value) {
-        for (AntennaChannelEnum type : AntennaChannelEnum.values()) {
+    public static LoginResponseEnum of(Integer value) {
+        for (LoginResponseEnum type : LoginResponseEnum.values()) {
             if (value.equals(type.getValue())) {
                 return type;
             }
@@ -54,6 +53,6 @@ public enum AntennaChannelEnum implements DictEnum {
         throw new IllegalArgumentException("invalid access control type value :" + value);
     }
     public static void main(String[] args) {
-        System.out.println(getText(3));
+        System.out.println(getText(200));
     }
 }
