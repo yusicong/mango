@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class userEntity {
+public class UserEntity extends BaseEntity{
 
     /**
      *用户唯一ID
@@ -77,15 +77,7 @@ public class userEntity {
      * */
     private String authType;
 
-    /**
-     *创建时间
-     * */
-    private LocalDateTime createTime;
 
-    /**
-     *更新时间
-     * */
-    private LocalDateTime updateTime;
 
     /**
      *用户注册IP地址

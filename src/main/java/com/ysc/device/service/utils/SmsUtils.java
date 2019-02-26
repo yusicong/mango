@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
-public class SMSUtils {
+public class SmsUtils {
 
     public static void main(String[] args) throws Exception {
 

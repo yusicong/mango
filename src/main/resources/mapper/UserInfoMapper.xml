@@ -21,13 +21,44 @@
     where username = #{username,jdbcType=VARCHAR}
   </select>
 
+  <resultMap id="UserResultMap" type="com.ysc.device.service.domain.entities.UserEntity">
+    <result column="user_uuid" jdbcType="BIGINT" property="userUuid" />
+    <result column="mobile" jdbcType="VARCHAR" property="" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="pen_name" jdbcType="VARCHAR" property="penName" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="qq_openId" jdbcType="VARCHAR" property="qqOpenId" />
+    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+    <result column="wechat_openId" jdbcType="VARCHAR" property="wechatOpenId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="auth_type" jdbcType="VARCHAR" property="authType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="reg_ip" jdbcType="VARCHAR" property="regIp" />
+    <result column="reg_time" jdbcType="VARCHAR" property="regTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
 
-  <select id="findByPhone" parameterType="java.lang.String" resultType="java.lang.String">
+  </resultMap>
+  <select id="findPasswordByPhone" parameterType="java.lang.String" resultType="java.lang.String">
     select
-    mobile
+    password
     from t_user
     where mobile = #{mobile,jdbcType=VARCHAR}
   </select>
+
+  <select id="findUserByPhone" parameterType="java.lang.String" resultMap="UserResultMap">
+    select
+    *
+    from t_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+
+  <!--新增用户-->
   <insert id="insertUser" parameterType="com.ysc.device.service.domain.entities.RegisterEntity" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -40,6 +71,8 @@
       <if test="password != null">
         password,
       </if>
+      create_time,
+      update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="authType != null">
@@ -51,6 +84,8 @@
       <if test="password != null">
         #{password},
       </if>
+      now(),
+      now()
     </trim>
   </insert>
 

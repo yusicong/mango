@@ -3,10 +3,8 @@ package com.ysc.device.service.domain.entities;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
-
 @Data
-public class RegisterEntity {
+public class RegisterEntity extends BaseEntity{
 
     /**
      * 授权注册类型，手机号注册/微信号注册/QQ号注册 默认：wechat/qq/mobile

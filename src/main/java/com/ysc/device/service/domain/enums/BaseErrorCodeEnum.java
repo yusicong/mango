@@ -9,8 +9,9 @@ public enum BaseErrorCodeEnum implements DictEnum {
     STATUS_2(20001, "登录失败，用户不存在"),
     STATUS_3(20002, "登录失败，密码错误"),
     STATUS_4(20003, "登录失败，登陆超时"),
-    STATUS_5(30001, "注册失败，未知原因"),
-    STATUS_6(30002, "注册失败，手机号已存在");
+    STATUS_5(10002, "注册成功"),
+    STATUS_6(30001, "注册失败，未知原因"),
+    STATUS_7(30002, "注册失败，手机号已存在");
     /**
      * 获取值
      */
