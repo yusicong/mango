@@ -2,8 +2,6 @@ package com.ysc.device.service.controller;
 
 import com.ysc.device.service.Application;
 import com.ysc.device.service.domain.entities.RegisterEntity;
-import com.ysc.device.service.domain.entities.User;
-import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.request.LoginByMboileRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.UserService;
@@ -14,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/user")
 public class UserApi {
+
     @Autowired
     UserService userService;
-
 
     //登录
     @PostMapping("/loginByMboile")

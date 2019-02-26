@@ -1,7 +1,7 @@
 package com.ysc.device.service.service;
 
 import com.ysc.device.service.domain.entities.RegisterEntity;
-import com.ysc.device.service.domain.entities.User;
+import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.request.LoginByMboileRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 
@@ -14,12 +14,12 @@ import com.ysc.device.service.domain.response.BaseResponse;
  */
 public interface UserService {
 
-    User findUserById(String Id);
-
-    User findByUsername(User username);
 
     BaseResponse register(RegisterEntity registerEntity);
 
     BaseResponse loginByMboile(LoginByMboileRequest request);
+
+    /**通过uuid查询user信息*/
+    UserEntity findUserById(String userUuid);
 
 }

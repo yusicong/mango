@@ -1,7 +1,6 @@
 package com.ysc.device.service.service.impl;
 
 import com.ysc.device.service.domain.entities.RegisterEntity;
-import com.ysc.device.service.domain.entities.User;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.enums.MOBSmsEnum;
@@ -29,16 +28,6 @@ public class UserServiceImpl implements UserService
 
     @Autowired
     UserInfoMapper userInfoMapper;
-
-    @Override
-    public User findUserById(String Id) {
-        return userInfoMapper.findUserById(Id);
-    }
-
-    @Override
-    public User findByUsername(User user) {
-        return userInfoMapper.findByUsername(user.getUsername());
-    }
 
     @Override
     public BaseResponse register(RegisterEntity registerEntity) {
@@ -90,5 +79,10 @@ public class UserServiceImpl implements UserService
             baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_3.getText());
         }
         return baseResponse;
+    }
+
+    @Override
+    public UserEntity findUserById(String userUuid) {
+        return userInfoMapper.findUserById(userUuid);
     }
 }
