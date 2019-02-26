@@ -1,5 +1,6 @@
 package com.ysc.device.service.repository;
 
+import com.ysc.device.service.domain.entities.RegisterEntity;
 import com.ysc.device.service.domain.entities.User;
 
 /**
@@ -11,4 +12,7 @@ public interface UserInfoMapper {
 
     User findByUsername(String username);
 
+    int insertUser(RegisterEntity registerEntity);
+
+    String findByPhone(String mobile);
 }

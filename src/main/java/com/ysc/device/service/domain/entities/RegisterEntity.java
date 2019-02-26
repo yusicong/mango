@@ -15,9 +15,8 @@ public class RegisterEntity {
     private String authType;
 
     /**
-     * 用户手机号
+     * 用户手机号-区号
      */
-    @NotNull
     private Integer zone;
 
     /**
@@ -35,6 +34,5 @@ public class RegisterEntity {
     /**
      * 注册验证码
      */
-    @NotNull
     private Integer code;
 }

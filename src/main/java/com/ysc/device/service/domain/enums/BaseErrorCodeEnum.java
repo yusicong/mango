@@ -3,12 +3,14 @@ package com.ysc.device.service.domain.enums;
 
 
 
-public enum LoginResponseEnum implements DictEnum {
+public enum BaseErrorCodeEnum implements DictEnum {
 
     STATUS_1(10001, "登录成功"),
     STATUS_2(20001, "登录失败，用户不存在"),
     STATUS_3(20002, "登录失败，密码错误"),
-    STATUS_4(20003, "登录失败，登陆超时");
+    STATUS_4(20003, "登录失败，登陆超时"),
+    STATUS_5(30001, "注册失败，未知原因"),
+    STATUS_6(30002, "注册失败，手机号已存在");
     /**
      * 获取值
      */
@@ -20,7 +22,7 @@ public enum LoginResponseEnum implements DictEnum {
     private String text;
 
 
-    LoginResponseEnum(Integer value, String text) {
+    BaseErrorCodeEnum(Integer value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -36,7 +38,7 @@ public enum LoginResponseEnum implements DictEnum {
     }
 
     public static String getText(Integer value) {
-        for (LoginResponseEnum type : LoginResponseEnum.values()) {
+        for (BaseErrorCodeEnum type : BaseErrorCodeEnum.values()) {
             if (value.equals(type.getValue())) {
                 return type.getText();
             }
@@ -44,8 +46,8 @@ public enum LoginResponseEnum implements DictEnum {
         return "--";
     }
 
-    public static LoginResponseEnum of(Integer value) {
-        for (LoginResponseEnum type : LoginResponseEnum.values()) {
+    public static BaseErrorCodeEnum of(Integer value) {
+        for (BaseErrorCodeEnum type : BaseErrorCodeEnum.values()) {
             if (value.equals(type.getValue())) {
                 return type;
             }

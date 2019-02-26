@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8101
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://39.106.206.72:3306/test
+        url: jdbc:mysql://39.106.206.72:3306/mcv
         username: root
         password: rootpass
         # 使用druid数据源

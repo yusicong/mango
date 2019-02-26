@@ -36,7 +36,7 @@ public class UserApi {
 
     @PostMapping("/register")
     public BaseResponse register(@RequestBody @Validated RegisterEntity user){
-        return null;
+        return userService.register(user);
     }
     @Application.UserLoginToken
     @GetMapping("/getMessage")

@@ -21,4 +21,37 @@
     where username = #{username,jdbcType=VARCHAR}
   </select>
 
+
+  <select id="findByPhone" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+    mobile
+    from t_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertUser" parameterType="com.ysc.device.service.domain.entities.RegisterEntity" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authType != null">
+        auth_type,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authType != null">
+        #{authType},
+      </if>
+      <if test="mobile != null">
+        #{mobile},
+      </if>
+      <if test="password != null">
+        #{password},
+      </if>
+    </trim>
+  </insert>
+
 </mapper>
