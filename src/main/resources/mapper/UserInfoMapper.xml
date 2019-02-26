@@ -15,7 +15,6 @@
     <result column="wechat" jdbcType="VARCHAR" property="wechat" />
     <result column="wechat_openId" jdbcType="VARCHAR" property="wechatOpenId" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="auth_type" jdbcType="VARCHAR" property="authType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -24,6 +23,8 @@
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="sex" jdbcType="TINYINT" property="sex" />
   </resultMap>
+
+
 
   <select id="findPasswordByPhone" parameterType="java.lang.String" resultType="java.lang.String">
     select
@@ -39,11 +40,31 @@
     where mobile = #{mobile,jdbcType=VARCHAR}
   </select>
 
-  <select id="findUserByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="findUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
+--       user_uuid,
+--       mobile,
+--       password,
+--       nick_name,
+--       pen_name,
+--       signature,
+--       image_url,
+--       qq,
+--       qq_openId,
+--       wechat,
+--       wechat_openId,
+--       email,
+--       real_name,
+--       auth_type,
+--       create_time,
+--       update_time,
+--       reg_ip,
+--       reg_time,
+--       status,
+--       sex
     *
     from t_user
-    where mobile = #{userUuid,jdbcType=VARCHAR}
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
   </select>
 
   <!--新增用户-->
@@ -59,6 +80,8 @@
       <if test="password != null">
         password,
       </if>
+      create_time,
+      update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="authType != null">
@@ -70,6 +93,8 @@
       <if test="password != null">
         #{password},
       </if>
+      now(),
+      now()
     </trim>
   </insert>
 

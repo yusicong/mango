@@ -23,6 +23,46 @@ public class RegisterEntity extends BaseEntity{
     @NotBlank
     private String mobile;
 
+    public String getAuthType() {
+        return authType;
+    }
+
+    public void setAuthType(String authType) {
+        this.authType = authType;
+    }
+
+    public Integer getZone() {
+        return zone;
+    }
+
+    public void setZone(Integer zone) {
+        this.zone = zone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
     /**
      * 用户密码
      */
@@ -33,4 +73,6 @@ public class RegisterEntity extends BaseEntity{
      * 注册验证码
      */
     private Integer code;
+
+
 }

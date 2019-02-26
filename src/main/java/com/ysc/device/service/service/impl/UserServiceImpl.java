@@ -62,23 +62,31 @@ public class UserServiceImpl implements UserService
 
     @Override
     public BaseResponse loginByMboile(LoginByMboileRequest request) {
-        UserEntity userEntity = userInfoMapper.findUserByPhone(request.getMoblie());
+        UserEntity userEntity = userInfoMapper.findUserByPhone(request.getMobile());
         BaseResponse baseResponse = new BaseResponse();
+        /**判断用户是否存在*/
+        if (null == userEntity){
+            baseResponse.setSuccess(false);
+            baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_2.getValue()+"");
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.STATUS_2.getText());
+            return baseResponse;
+        }
         /**判断密码是否正确 正确*/
         if (request.getPassword().equals(userEntity.getPassword())){
             userEntity.setToken(TokenUtils.getToken(userEntity));
             baseResponse.setSuccess(true);
             baseResponse.setModel(userEntity);
             baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_1.getValue()+"");
-            baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_1.getText());
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.STATUS_1.getText());
+            return baseResponse;
         }
         /**错误*/
         else {
             baseResponse.setSuccess(false);
             baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_3.getValue()+"");
-            baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_3.getText());
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.STATUS_3.getText());
+            return baseResponse;
         }
-        return baseResponse;
     }
 
     @Override
