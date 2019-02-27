@@ -3,7 +3,7 @@
 <mapper namespace="com.ysc.device.service.repository.UserInfoMapper">
 
   <resultMap id="BaseResultMap" type="com.ysc.device.service.domain.entities.UserEntity">
-    <id column="user_uuid" jdbcType="BIGINT" property="userUuid" />
+    <id column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
@@ -68,9 +68,12 @@
   </select>
 
   <!--新增用户-->
-  <insert id="insertUser" parameterType="com.ysc.device.service.domain.entities.RegisterEntity" >
+  <insert id="insertUser" parameterType="com.ysc.device.service.domain.entities.UserEntity" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userUuid != null">
+        user_uuid,
+      </if>
       <if test="authType != null">
         auth_type,
       </if>
@@ -80,10 +83,16 @@
       <if test="password != null">
         password,
       </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
       create_time,
       update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userUuid != null">
+        #{userUuid},
+      </if>
       <if test="authType != null">
         #{authType},
       </if>
@@ -92,6 +101,9 @@
       </if>
       <if test="password != null">
         #{password},
+      </if>
+      <if test="nickName != null">
+        #{nickName},
       </if>
       now(),
       now()

@@ -9,7 +9,7 @@ import com.ysc.device.service.domain.entities.UserEntity;
 public interface UserInfoMapper {
 
 
-    int insertUser(RegisterEntity registerEntity);
+    int insertUser(UserEntity userEntity);
 
     String findPasswordByPhone(String mobile);
 

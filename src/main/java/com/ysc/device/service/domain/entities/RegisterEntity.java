@@ -3,6 +3,8 @@ package com.ysc.device.service.domain.entities;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 public class RegisterEntity extends BaseEntity{
 
@@ -15,6 +17,7 @@ public class RegisterEntity extends BaseEntity{
     /**
      * 用户手机号-区号
      */
+    @NotNull
     private Integer zone;
 
     /**
@@ -22,6 +25,22 @@ public class RegisterEntity extends BaseEntity{
      */
     @NotBlank
     private String mobile;
+
+    /**
+     * 用户密码
+     */
+    @NotBlank
+    private String password;
+
+    /**
+     * 注册验证码
+     */
+    @NotNull
+    private Integer code;
+
+
+
+
 
     public String getAuthType() {
         return authType;
@@ -62,17 +81,5 @@ public class RegisterEntity extends BaseEntity{
     public void setCode(Integer code) {
         this.code = code;
     }
-
-    /**
-     * 用户密码
-     */
-    @NotBlank
-    private String password;
-
-    /**
-     * 注册验证码
-     */
-    private Integer code;
-
 
 }

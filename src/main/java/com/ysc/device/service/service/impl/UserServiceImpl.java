@@ -4,13 +4,15 @@ import com.ysc.device.service.domain.entities.RegisterEntity;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.enums.MOBSmsEnum;
-import com.ysc.device.service.domain.request.LoginByMboileRequest;
+import com.ysc.device.service.domain.request.LoginByMobileRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
 import com.ysc.device.service.service.UserService;
+import com.ysc.device.service.utils.JsonUtils;
 import com.ysc.device.service.utils.SmsUtils;
 import com.ysc.device.service.utils.TokenUtils;
+import com.ysc.device.service.utils.UserUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +50,13 @@ public class UserServiceImpl implements UserService
                 return baseResponse;
             }
         }
-        if(1 != userInfoMapper.insertUser(registerEntity)){
+
+        UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(registerEntity),UserEntity.class);
+
+        System.out.println(userEntity);
+        userEntity.setUserUuid(UserUtils.getRandomUuid());
+        userEntity.setNickName(UserUtils.getRandomName());
+        if(1 != userInfoMapper.insertUser(userEntity)){
             baseResponse.setSuccess(false);
             baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_5.getValue()+"");
             baseResponse.setErrorMessage(BaseErrorCodeEnum.STATUS_5.getText());
@@ -61,7 +69,7 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public BaseResponse loginByMboile(LoginByMboileRequest request) {
+    public BaseResponse loginByMobile(LoginByMobileRequest request) {
         UserEntity userEntity = userInfoMapper.findUserByPhone(request.getMobile());
         BaseResponse baseResponse = new BaseResponse();
         /**判断用户是否存在*/
@@ -74,8 +82,9 @@ public class UserServiceImpl implements UserService
         /**判断密码是否正确 正确*/
         if (request.getPassword().equals(userEntity.getPassword())){
             userEntity.setToken(TokenUtils.getToken(userEntity));
+            userEntity.setPassword(null);
             baseResponse.setSuccess(true);
-            baseResponse.setModel(userEntity);
+            baseResponse.setData(userEntity);
             baseResponse.setErrorCode(BaseErrorCodeEnum.STATUS_1.getValue()+"");
             baseResponse.setErrorMessage(BaseErrorCodeEnum.STATUS_1.getText());
             return baseResponse;

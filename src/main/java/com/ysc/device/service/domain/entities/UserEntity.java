@@ -2,15 +2,13 @@ package com.ysc.device.service.domain.entities;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class UserEntity extends BaseEntity{
 
     /**
      *用户唯一ID
      * */
-    private Long userUuid;
+    private String userUuid;
 
     /**
      *用户手机号
@@ -99,11 +97,11 @@ public class UserEntity extends BaseEntity{
      * */
     private Long sex;
 
-    public Long getUserUuid() {
+    public String getUserUuid() {
         return userUuid;
     }
 
-    public void setUserUuid(Long userUuid) {
+    public void setUserUuid(String userUuid) {
         this.userUuid = userUuid;
     }
 
@@ -241,5 +239,31 @@ public class UserEntity extends BaseEntity{
 
     public void setSex(Long sex) {
         this.sex = sex;
+    }
+
+    /**
+     *用户手机号
+     * */
+    private String zone;
+
+    /**
+     * 注册验证码
+     */
+    private Integer code;
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

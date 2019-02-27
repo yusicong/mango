@@ -3,7 +3,7 @@ package com.ysc.device.service.domain.request;
 import lombok.Data;
 
 @Data
-public class LoginByMboileRequest {
+public class LoginByMobileRequest {
 
     private String mobile;
 

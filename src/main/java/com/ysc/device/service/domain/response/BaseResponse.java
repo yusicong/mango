@@ -43,7 +43,7 @@ public class BaseResponse<T> implements Serializable {
     /**
      * 处理成功的业务数据
      */
-    private T model;
+    private T data;
 
     public boolean isSuccess() {
         return success;
@@ -70,12 +70,12 @@ public class BaseResponse<T> implements Serializable {
     }
 
 
-    public T getModel() {
-        return model;
+    public T getData() {
+        return data;
     }
 
-    public void setModel(T model) {
-        this.model = model;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public String getErrorTips() {
@@ -112,7 +112,7 @@ public class BaseResponse<T> implements Serializable {
 
     public BaseResponse<T> success(T model) {
         this.setSuccess(true);
-        this.setModel(model);
+        this.setData(model);
         return this;
     }
 
