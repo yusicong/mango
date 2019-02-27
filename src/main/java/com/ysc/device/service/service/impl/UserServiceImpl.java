@@ -5,6 +5,7 @@ import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.enums.MOBSmsEnum;
 import com.ysc.device.service.domain.request.LoginByMobileRequest;
+import com.ysc.device.service.domain.request.LoginByOtherRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by IDEA
  *
- * @author : yusicng
+ * @author : yusicong
  * @Date : 2018/7/23.
  * @Time : 17:56
  */
@@ -96,6 +97,11 @@ public class UserServiceImpl implements UserService
             baseResponse.setErrorMessage(BaseErrorCodeEnum.STATUS_3.getText());
             return baseResponse;
         }
+    }
+
+    @Override
+    public BaseResponse loginByOther(LoginByOtherRequest request) {
+        return null;
     }
 
     @Override

@@ -16,8 +16,8 @@
     <result column="wechat_openId" jdbcType="VARCHAR" property="wechatOpenId" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="auth_type" jdbcType="VARCHAR" property="authType" />
-    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
-    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="reg_ip" jdbcType="VARCHAR" property="regIp" />
     <result column="reg_time" jdbcType="VARCHAR" property="regTime" />
     <result column="status" jdbcType="TINYINT" property="status" />

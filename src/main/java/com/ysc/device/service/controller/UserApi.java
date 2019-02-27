@@ -3,6 +3,7 @@ package com.ysc.device.service.controller;
 import com.ysc.device.service.Application;
 import com.ysc.device.service.domain.entities.RegisterEntity;
 import com.ysc.device.service.domain.request.LoginByMobileRequest;
+import com.ysc.device.service.domain.request.LoginByOtherRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,16 @@ public class UserApi {
     @Autowired
     UserService userService;
 
-    //登录
+    /**手机登录*/
     @PostMapping("/loginByMobile")
     public BaseResponse login(@RequestBody @Validated LoginByMobileRequest request) {
         return userService.loginByMobile(request);
+    }
+
+    /**第三方登陆*/
+    @PostMapping("/loginByOther")
+    public BaseResponse loginByOther(@RequestBody @Validated LoginByOtherRequest request) {
+        return userService.loginByOther(request);
     }
     @PostMapping("/register")
     public BaseResponse register(@RequestBody @Validated RegisterEntity user) {
