@@ -1,6 +1,7 @@
 package com.ysc.device.service.controller;
 
 import com.ysc.device.service.Application;
+import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.UserService;
@@ -51,5 +52,11 @@ public class UserApi {
     @PostMapping("/getUserInfo")
     public BaseResponse getUserInfo(@RequestBody @Validated QueryUserInfoRequest queryUserInfoRequest) {
         return userService.getUserInfo(queryUserInfoRequest);
+    }
+
+    @Application.UserLoginToken
+    @PostMapping("/modifyUserinfo")
+    public BaseResponse modifyUserinfo(@RequestBody @Validated UpdateUserInfoRequest updateUserInfoRequest) {
+        return userService.modifyUserinfo(updateUserInfoRequest);
     }
 }

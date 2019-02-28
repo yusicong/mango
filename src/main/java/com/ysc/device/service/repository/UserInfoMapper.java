@@ -13,7 +13,10 @@ public interface UserInfoMapper {
 
     /**更新用户信息*/
     int updateUserByPhone(UserEntity userEntity);
-    
+
+    /**更新用户信息*/
+    int updateUserByUuid(UserEntity userEntity);
+
     /**根据手机号查询密码*/
     String findPasswordByPhone(String mobile);
 

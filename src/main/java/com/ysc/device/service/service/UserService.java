@@ -31,5 +31,5 @@ public interface UserService {
     /**获取用户信息*/
     BaseResponse getUserInfo(QueryUserInfoRequest queryUserInfoRequest);
 
-
+    BaseResponse modifyUserinfo(UpdateUserInfoRequest updateUserInfoRequest);
 }
