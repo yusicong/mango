@@ -1,6 +1,5 @@
 package com.ysc.device.service.utils;
 
-import com.ysc.device.service.domain.dto.RegisterDTO;
 import com.ysc.device.service.domain.request.SmsCodeValidateRequest;
 import com.ysc.device.service.domain.response.SMSResponse;
 

@@ -1,15 +1,11 @@
 package com.ysc.device.service.service.impl;
 
-import com.ysc.device.service.domain.dto.ForgetPasswordDTO;
-import com.ysc.device.service.domain.dto.RegisterDTO;
+import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.entities.BaseEntity;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.AuthTypeEnum;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.enums.MOBSmsEnum;
-import com.ysc.device.service.domain.request.LoginByMobileRequest;
-import com.ysc.device.service.domain.request.LoginByOtherRequest;
-import com.ysc.device.service.domain.request.SmsCodeValidateRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
@@ -37,19 +33,19 @@ public class UserServiceImpl implements UserService
     UserInfoMapper userInfoMapper;
 
     @Override
-    public BaseResponse register(RegisterDTO registerDTO) {
+    public BaseResponse register(RegisterRequest registerRequest) {
         BaseResponse baseResponse = new BaseResponse();
-        if (!StringUtils.isBlank(userInfoMapper.findPasswordByPhone(registerDTO.getMobile()))){
+        if (!StringUtils.isBlank(userInfoMapper.findPasswordByPhone(registerRequest.getMobile()))){
             baseResponse.setSuccess(false);
             baseResponse.setErrorCode(BaseErrorCodeEnum.REGISTER_STATUS_2.getValue()+"");
             baseResponse.setErrorMessage(BaseErrorCodeEnum.REGISTER_STATUS_2.getText());
             return baseResponse;
         }
-        if (registerDTO.getCode() != 96500909){
+        if (registerRequest.getCode() != 96500909){
             SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
-            smsCodeValidateRequest.setCode(registerDTO.getCode());
-            smsCodeValidateRequest.setMobile(registerDTO.getMobile());
-            smsCodeValidateRequest.setZone(registerDTO.getZone());
+            smsCodeValidateRequest.setCode(registerRequest.getCode());
+            smsCodeValidateRequest.setMobile(registerRequest.getMobile());
+            smsCodeValidateRequest.setZone(registerRequest.getZone());
             SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
             /**验证码校验失败*/
             if (smsResponse.getStatus() != 200){
@@ -60,7 +56,7 @@ public class UserServiceImpl implements UserService
             }
         }
 
-        UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(registerDTO),UserEntity.class);
+        UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(registerRequest),UserEntity.class);
         userEntity.setUserUuid(UserUtils.getRandomUuid());
         userEntity.setNickName(UserUtils.getRandomName());
         if(1 != userInfoMapper.insertUser(userEntity)){
@@ -202,8 +198,8 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public BaseResponse forgetPassword(ForgetPasswordDTO forgetPasswordDTO) {
-        UserEntity userEntity = userInfoMapper.findUserByPhone(forgetPasswordDTO.getMobile());
+    public BaseResponse forgetPassword(ForgetPasswordRequest forgetPasswordRequest) {
+        UserEntity userEntity = userInfoMapper.findUserByPhone(forgetPasswordRequest.getMobile());
         BaseResponse baseResponse = new BaseResponse();
         /**判断用户是否存在*/
         if (null == userEntity){
@@ -213,11 +209,11 @@ public class UserServiceImpl implements UserService
             return baseResponse;
         }
         /**校验验证码*/
-        if (forgetPasswordDTO.getCode() != 96500909){
+        if (forgetPasswordRequest.getCode() != 96500909){
             SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
-            smsCodeValidateRequest.setCode(forgetPasswordDTO.getCode());
-            smsCodeValidateRequest.setMobile(forgetPasswordDTO.getMobile());
-            smsCodeValidateRequest.setZone(forgetPasswordDTO.getZone());
+            smsCodeValidateRequest.setCode(forgetPasswordRequest.getCode());
+            smsCodeValidateRequest.setMobile(forgetPasswordRequest.getMobile());
+            smsCodeValidateRequest.setZone(forgetPasswordRequest.getZone());
             SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
             /**验证码校验失败*/
             if (smsResponse.getStatus() != 200){
@@ -228,13 +224,13 @@ public class UserServiceImpl implements UserService
             }
         }
         /**新密码与旧密码相同*/
-        if (forgetPasswordDTO.getPassword().equals(userEntity.getPassword())){
+        if (forgetPasswordRequest.getPassword().equals(userEntity.getPassword())){
             baseResponse.setSuccess(false);
             baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_1.getValue()+"");
             baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_1.getText());
             return baseResponse;
         }
-        userEntity.setPassword(forgetPasswordDTO.getPassword());
+        userEntity.setPassword(forgetPasswordRequest.getPassword());
         if (1 == userInfoMapper.updateUserByPhone(userEntity)){
             baseResponse.setSuccess(true);
             baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_2.getValue()+"");
@@ -246,5 +242,39 @@ public class UserServiceImpl implements UserService
             baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_3.getText());
             return baseResponse;
         }
+    }
+
+    @Override
+    public BaseResponse getUserInfo(QueryUserInfoRequest queryUserInfoRequest) {
+        BaseResponse baseResponse = new BaseResponse();
+        UserEntity userEntity = new UserEntity();
+        if(!StringUtils.isBlank(queryUserInfoRequest.getMobile())){
+            userEntity =userInfoMapper.findUserByPhone(queryUserInfoRequest.getMobile());
+            if (null != userEntity){
+                return BaseResponse.createSuccessResult(userEntity);
+            }
+        }
+        if(!StringUtils.isBlank(queryUserInfoRequest.getUserUuid())){
+            userEntity =userInfoMapper.findUserById(queryUserInfoRequest.getUserUuid());
+            if (null != userEntity){
+                return BaseResponse.createSuccessResult(userEntity);
+            }
+        }
+        if(!StringUtils.isBlank(queryUserInfoRequest.getQqOpenId())){
+            userEntity =userInfoMapper.findUserByQqOpenId(queryUserInfoRequest.getQqOpenId());
+            if (null != userEntity){
+                return BaseResponse.createSuccessResult(userEntity);
+            }
+        }
+        if(!StringUtils.isBlank(queryUserInfoRequest.getWechatOpenId())){
+            userEntity =userInfoMapper.findUserByWeChatOpenId(queryUserInfoRequest.getWechatOpenId());
+            if (null != userEntity){
+                return BaseResponse.createSuccessResult(userEntity);
+            }
+        }
+        baseResponse.setSuccess(false);
+        baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_3.getValue()+"");
+        baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_3.getText());
+        return baseResponse;
     }
 }

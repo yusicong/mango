@@ -1,10 +1,10 @@
-package com.ysc.device.service.domain.dto;
+package com.ysc.device.service.domain.request;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
-public class ForgetPasswordDTO{
+public class ForgetPasswordRequest {
 
     /**
      * 用户手机号-区号

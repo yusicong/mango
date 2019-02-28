@@ -1,10 +1,7 @@
 package com.ysc.device.service.controller;
 
 import com.ysc.device.service.Application;
-import com.ysc.device.service.domain.dto.ForgetPasswordDTO;
-import com.ysc.device.service.domain.dto.RegisterDTO;
-import com.ysc.device.service.domain.request.LoginByMobileRequest;
-import com.ysc.device.service.domain.request.LoginByOtherRequest;
+import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +28,18 @@ public class UserApi {
     }
     /**手机号注册*/
     @PostMapping("/register")
-    public BaseResponse register(@RequestBody @Validated RegisterDTO user) {
+    public BaseResponse register(@RequestBody @Validated RegisterRequest user) {
         return userService.register(user);
     }
+
+
+
+    /**手机号注册*/
+    @PostMapping("/forgetPassword")
+    public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordRequest forgetPasswordRequest) {
+        return userService.forgetPassword(forgetPasswordRequest);
+    }
+
 
     @Application.UserLoginToken
     @GetMapping("/getMessage")
@@ -41,10 +47,9 @@ public class UserApi {
         return "你已通过验证";
     }
 
-    /**手机号注册*/
-    @PostMapping("/forgetPassword")
-    public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordDTO forgetPasswordDTO) {
-        return userService.forgetPassword(forgetPasswordDTO);
+    @Application.UserLoginToken
+    @PostMapping("/getUserInfo")
+    public BaseResponse getUserInfo(@RequestBody @Validated QueryUserInfoRequest queryUserInfoRequest) {
+        return userService.getUserInfo(queryUserInfoRequest);
     }
-
 }

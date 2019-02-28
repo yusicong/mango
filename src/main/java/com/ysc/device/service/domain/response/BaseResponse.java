@@ -1,8 +1,5 @@
 package com.ysc.device.service.domain.response;
 
-
-
-
 import com.ysc.device.service.exception.BaseException;
 import com.ysc.device.service.exception.BaseExceptionCode;
 
@@ -11,8 +8,8 @@ import java.io.Serializable;
 /**
  * BaseResponse
  *
- * @Author Chase Lv(蛰龙)
- * @Date 2017/7/7
+ * @Author yusicong
+ * @Date 2018/7/7
  * @Time 上午7:30
  * @Description
  */

@@ -15,6 +15,8 @@ public enum BaseErrorCodeEnum implements DictEnum {
     UPDATE_STATUS_2(40002, "修改成功"),
     UPDATE_STATUS_3(40002, "修改失败，未知原因"),
 
+    QUERY_STATUS_1(50001, "没有匹配的结果"),
+
     REGISTER_STATUS_1(10002, "注册成功"),
     REGISTER_STATUS_2(30001, "注册失败，未知原因"),
     REGISTER_STATUS_3(30002, "注册失败，手机号已存在");

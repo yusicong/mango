@@ -1,10 +1,7 @@
 package com.ysc.device.service.service;
 
-import com.ysc.device.service.domain.dto.ForgetPasswordDTO;
-import com.ysc.device.service.domain.dto.RegisterDTO;
+import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.entities.UserEntity;
-import com.ysc.device.service.domain.request.LoginByMobileRequest;
-import com.ysc.device.service.domain.request.LoginByOtherRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 
 /**
@@ -17,7 +14,7 @@ import com.ysc.device.service.domain.response.BaseResponse;
 public interface UserService {
 
     /**通过手机号注册*/
-    BaseResponse register(RegisterDTO registerDTO);
+    BaseResponse register(RegisterRequest registerRequest);
 
     /**通过手机号登陆*/
     BaseResponse loginByMobile(LoginByMobileRequest request);
@@ -29,7 +26,10 @@ public interface UserService {
     UserEntity findUserById(String userUuid);
 
     /**手机号忘记密码*/
-    BaseResponse forgetPassword(ForgetPasswordDTO forgetPasswordDTO);
+    BaseResponse forgetPassword(ForgetPasswordRequest forgetPasswordRequest);
+
+    /**获取用户信息*/
+    BaseResponse getUserInfo(QueryUserInfoRequest queryUserInfoRequest);
 
 
 }
