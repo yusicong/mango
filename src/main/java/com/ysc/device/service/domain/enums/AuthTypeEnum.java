@@ -3,16 +3,11 @@ package com.ysc.device.service.domain.enums;
 
 
 
-public enum BaseErrorCodeEnum implements DictEnum {
+public enum AuthTypeEnum implements DictEnum {
 
-    LOGIN_STATUS_1(10001, "登录成功"),
-    LOGIN_STATUS_2(20001, "登录失败，用户不存在"),
-    LOGIN_STATUS_3(20002, "登录失败，密码错误"),
-    LOGIN_STATUS_4(20003, "登录失败，登陆超时"),
-    LOGIN_STATUS_5(20003, "登录失败，未知原因"),
-    REGISTER_STATUS_1(10002, "注册成功"),
-    REGISTER_STATUS_2(30001, "注册失败，未知原因"),
-    REGISTER_STATUS_3(30002, "注册失败，手机号已存在");
+    AUTH_TYPE_ENUM_1(1, "mobile"),
+    AUTH_TYPE_ENUM_2(2, "qq"),
+    AUTH_TYPE_ENUM_3(3, "weChat");
     /**
      * 获取值
      */
@@ -24,7 +19,7 @@ public enum BaseErrorCodeEnum implements DictEnum {
     private String text;
 
 
-    BaseErrorCodeEnum(Integer value, String text) {
+    AuthTypeEnum(Integer value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -40,7 +35,7 @@ public enum BaseErrorCodeEnum implements DictEnum {
     }
 
     public static String getText(Integer value) {
-        for (BaseErrorCodeEnum type : BaseErrorCodeEnum.values()) {
+        for (AuthTypeEnum type : AuthTypeEnum.values()) {
             if (value.equals(type.getValue())) {
                 return type.getText();
             }
@@ -48,8 +43,8 @@ public enum BaseErrorCodeEnum implements DictEnum {
         return "--";
     }
 
-    public static BaseErrorCodeEnum of(Integer value) {
-        for (BaseErrorCodeEnum type : BaseErrorCodeEnum.values()) {
+    public static AuthTypeEnum of(Integer value) {
+        for (AuthTypeEnum type : AuthTypeEnum.values()) {
             if (value.equals(type.getValue())) {
                 return type;
             }

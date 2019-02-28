@@ -1,7 +1,7 @@
 package com.ysc.device.service.controller;
 
 import com.ysc.device.service.Application;
-import com.ysc.device.service.domain.entities.RegisterEntity;
+import com.ysc.device.service.domain.dto.RegisterDTO;
 import com.ysc.device.service.domain.request.LoginByMobileRequest;
 import com.ysc.device.service.domain.request.LoginByOtherRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
@@ -29,7 +29,7 @@ public class UserApi {
         return userService.loginByOther(request);
     }
     @PostMapping("/register")
-    public BaseResponse register(@RequestBody @Validated RegisterEntity user) {
+    public BaseResponse register(@RequestBody @Validated RegisterDTO user) {
         return userService.register(user);
     }
 

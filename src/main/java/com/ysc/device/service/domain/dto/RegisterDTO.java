@@ -1,12 +1,13 @@
-package com.ysc.device.service.domain.entities;
+package com.ysc.device.service.domain.dto;
 
+import com.ysc.device.service.domain.entities.BaseEntity;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
 @Data
-public class RegisterEntity extends BaseEntity{
+public class RegisterDTO extends BaseEntity {
 
     /**
      * 授权注册类型，手机号注册/微信号注册/QQ号注册 默认：wechat/qq/mobile

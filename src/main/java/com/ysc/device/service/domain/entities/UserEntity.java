@@ -51,7 +51,7 @@ public class UserEntity extends BaseEntity{
     /**
      *QQ第三方登录唯一号
      * */
-    private String qqOpenid;
+    private String qqOpenId;
 
     /**
      *微信号
@@ -61,7 +61,7 @@ public class UserEntity extends BaseEntity{
     /**
      *微信登录唯一号
      * */
-    private String wechatOpenid;
+    private String wechatOpenId;
 
     /**
      *用户email地址
@@ -76,7 +76,7 @@ public class UserEntity extends BaseEntity{
     /**
      *授权注册类型，手机号注册/微信号注册/QQ号注册 默认：wechat/qq/mobile
      * */
-    private String authType;
+    private Integer authType;
 
 
 
@@ -93,12 +93,12 @@ public class UserEntity extends BaseEntity{
     /**
      *用户账号状态，0默认，1冻结
      * */
-    private Long status;
+    private Integer status;
 
     /**
      *用户性别 0默认 1男 2女
      * */
-    private Long sex;
+    private Integer sex;
 
     public String getUserUuid() {
         return userUuid;
@@ -164,13 +164,7 @@ public class UserEntity extends BaseEntity{
         this.qq = qq;
     }
 
-    public String getQqOpenid() {
-        return qqOpenid;
-    }
 
-    public void setQqOpenid(String qqOpenid) {
-        this.qqOpenid = qqOpenid;
-    }
 
     public String getWechat() {
         return wechat;
@@ -180,12 +174,12 @@ public class UserEntity extends BaseEntity{
         this.wechat = wechat;
     }
 
-    public String getWechatOpenid() {
-        return wechatOpenid;
+    public String getWechatOpenId() {
+        return wechatOpenId;
     }
 
-    public void setWechatOpenid(String wechatOpenid) {
-        this.wechatOpenid = wechatOpenid;
+    public void setWechatOpenId(String wechatOpenId) {
+        this.wechatOpenId = wechatOpenId;
     }
 
     public String getEmail() {
@@ -204,11 +198,11 @@ public class UserEntity extends BaseEntity{
         this.realName = realName;
     }
 
-    public String getAuthType() {
+    public Integer getAuthType() {
         return authType;
     }
 
-    public void setAuthType(String authType) {
+    public void setAuthType(Integer authType) {
         this.authType = authType;
     }
 
@@ -228,20 +222,28 @@ public class UserEntity extends BaseEntity{
         this.regTime = regTime;
     }
 
-    public Long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public Long getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Long sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
+    }
+
+    public String getQqOpenId() {
+        return qqOpenId;
+    }
+
+    public void setQqOpenId(String qqOpenId) {
+        this.qqOpenId = qqOpenId;
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.ysc.device.service.domain.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Data
 public class BaseEntity {
 

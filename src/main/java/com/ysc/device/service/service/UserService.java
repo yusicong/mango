@@ -1,6 +1,6 @@
 package com.ysc.device.service.service;
 
-import com.ysc.device.service.domain.entities.RegisterEntity;
+import com.ysc.device.service.domain.dto.RegisterDTO;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.request.LoginByMobileRequest;
 import com.ysc.device.service.domain.request.LoginByOtherRequest;
@@ -16,7 +16,7 @@ import com.ysc.device.service.domain.response.BaseResponse;
 public interface UserService {
 
 
-    BaseResponse register(RegisterEntity registerEntity);
+    BaseResponse register(RegisterDTO registerDTO);
 
     /**通过手机号登陆*/
     BaseResponse loginByMobile(LoginByMobileRequest request);

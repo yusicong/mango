@@ -15,7 +15,7 @@
     <result column="wechat" jdbcType="VARCHAR" property="wechat" />
     <result column="wechat_openId" jdbcType="VARCHAR" property="wechatOpenId" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="auth_type" jdbcType="VARCHAR" property="authType" />
+    <result column="auth_type" jdbcType="TINYINT" property="authType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="reg_ip" jdbcType="VARCHAR" property="regIp" />
@@ -38,6 +38,20 @@
     *
     from t_user
     where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findUserByQqOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from t_user
+    where qq_openId = #{qqOpenId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findUserByWeChatOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from t_user
+    where wechat_openId = #{wechatOpenId,jdbcType=VARCHAR}
   </select>
 
   <select id="findUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -74,9 +88,6 @@
       <if test="userUuid != null">
         user_uuid,
       </if>
-      <if test="authType != null">
-        auth_type,
-      </if>
       <if test="mobile != null">
         mobile,
       </if>
@@ -86,15 +97,52 @@
       <if test="nickName != null">
         nick_name,
       </if>
+      <if test="penName != null">
+        pen_name,
+      </if>
+      <if test="signature != null">
+        signature,
+      </if>
+      <if test="imageUrl != null">
+        image_url,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="qqOpenId != null">
+        qq_openId,
+      </if>
+      <if test="wechat != null">
+        wechat,
+      </if>
+      <if test="wechatOpenId != null">
+        wechat_openId,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="authType != null">
+        auth_type,
+      </if>
+      <if test="regIp != null">
+        reg_ip,
+      </if>
+      <if test="regTime != null">
+        reg_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
       create_time,
-      update_time
+      update_time,
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userUuid != null">
         #{userUuid},
-      </if>
-      <if test="authType != null">
-        #{authType},
       </if>
       <if test="mobile != null">
         #{mobile},
@@ -104,6 +152,45 @@
       </if>
       <if test="nickName != null">
         #{nickName},
+      </if>
+      <if test="penName != null">
+        #{penName},
+      </if>
+      <if test="signature != null">
+        #{signature},
+      </if>
+      <if test="imageUrl != null">
+        #{imageUrl},
+      </if>
+      <if test="qq != null">
+        #{qq},
+      </if>
+      <if test="qqOpenId != null">
+        #{qqOpenId},
+      </if>
+      <if test="wechat != null">
+        #{wechat},
+      </if>
+      <if test="wechatOpenId != null">
+        #{wechatOpenId},
+      </if>
+      <if test="email != null">
+        #{email},
+      </if>
+      <if test="authType != null">
+        #{authType},
+      </if>
+      <if test="regIp != null">
+        #{regIp},
+      </if>
+      <if test="regTime != null">
+        #{regTime},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="sex != null">
+        #{sex},
       </if>
       now(),
       now()
