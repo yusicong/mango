@@ -1,5 +1,6 @@
 package com.ysc.device.service.service.impl;
 
+import com.ysc.device.service.domain.dto.ForgetPasswordDTO;
 import com.ysc.device.service.domain.dto.RegisterDTO;
 import com.ysc.device.service.domain.entities.BaseEntity;
 import com.ysc.device.service.domain.entities.UserEntity;
@@ -8,6 +9,7 @@ import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.enums.MOBSmsEnum;
 import com.ysc.device.service.domain.request.LoginByMobileRequest;
 import com.ysc.device.service.domain.request.LoginByOtherRequest;
+import com.ysc.device.service.domain.request.SmsCodeValidateRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
@@ -43,8 +45,12 @@ public class UserServiceImpl implements UserService
             baseResponse.setErrorMessage(BaseErrorCodeEnum.REGISTER_STATUS_2.getText());
             return baseResponse;
         }
-        if (registerDTO.getCode() != 1234){
-            SMSResponse smsResponse = SmsUtils.smsCodeValidated(registerDTO);
+        if (registerDTO.getCode() != 96500909){
+            SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
+            smsCodeValidateRequest.setCode(registerDTO.getCode());
+            smsCodeValidateRequest.setMobile(registerDTO.getMobile());
+            smsCodeValidateRequest.setZone(registerDTO.getZone());
+            SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
             /**验证码校验失败*/
             if (smsResponse.getStatus() != 200){
                 baseResponse.setSuccess(false);
@@ -193,5 +199,52 @@ public class UserServiceImpl implements UserService
     @Override
     public UserEntity findUserById(String userUuid) {
         return userInfoMapper.findUserById(userUuid);
+    }
+
+    @Override
+    public BaseResponse forgetPassword(ForgetPasswordDTO forgetPasswordDTO) {
+        UserEntity userEntity = userInfoMapper.findUserByPhone(forgetPasswordDTO.getMobile());
+        BaseResponse baseResponse = new BaseResponse();
+        /**判断用户是否存在*/
+        if (null == userEntity){
+            baseResponse.setSuccess(false);
+            baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_2.getValue()+"");
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_2.getText());
+            return baseResponse;
+        }
+        /**校验验证码*/
+        if (forgetPasswordDTO.getCode() != 96500909){
+            SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
+            smsCodeValidateRequest.setCode(forgetPasswordDTO.getCode());
+            smsCodeValidateRequest.setMobile(forgetPasswordDTO.getMobile());
+            smsCodeValidateRequest.setZone(forgetPasswordDTO.getZone());
+            SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
+            /**验证码校验失败*/
+            if (smsResponse.getStatus() != 200){
+                baseResponse.setSuccess(false);
+                baseResponse.setErrorCode(smsResponse.getStatus()+"");
+                baseResponse.setErrorMessage(MOBSmsEnum.getText(smsResponse.getStatus()));
+                return baseResponse;
+            }
+        }
+        /**新密码与旧密码相同*/
+        if (forgetPasswordDTO.getPassword().equals(userEntity.getPassword())){
+            baseResponse.setSuccess(false);
+            baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_1.getValue()+"");
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_1.getText());
+            return baseResponse;
+        }
+        userEntity.setPassword(forgetPasswordDTO.getPassword());
+        if (1 == userInfoMapper.updateUserByPhone(userEntity)){
+            baseResponse.setSuccess(true);
+            baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_2.getValue()+"");
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_2.getText());
+            return baseResponse;
+        }else {
+            baseResponse.setSuccess(false);
+            baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_3.getValue()+"");
+            baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_3.getText());
+            return baseResponse;
+        }
     }
 }

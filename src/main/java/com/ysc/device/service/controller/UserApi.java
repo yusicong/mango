@@ -1,6 +1,7 @@
 package com.ysc.device.service.controller;
 
 import com.ysc.device.service.Application;
+import com.ysc.device.service.domain.dto.ForgetPasswordDTO;
 import com.ysc.device.service.domain.dto.RegisterDTO;
 import com.ysc.device.service.domain.request.LoginByMobileRequest;
 import com.ysc.device.service.domain.request.LoginByOtherRequest;
@@ -28,6 +29,7 @@ public class UserApi {
     public BaseResponse loginByOther(@RequestBody @Validated LoginByOtherRequest request) {
         return userService.loginByOther(request);
     }
+    /**手机号注册*/
     @PostMapping("/register")
     public BaseResponse register(@RequestBody @Validated RegisterDTO user) {
         return userService.register(user);
@@ -38,4 +40,11 @@ public class UserApi {
     public String getMessage() {
         return "你已通过验证";
     }
+
+    /**手机号注册*/
+    @PostMapping("/forgetPassword")
+    public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordDTO forgetPasswordDTO) {
+        return userService.forgetPassword(forgetPasswordDTO);
+    }
+
 }

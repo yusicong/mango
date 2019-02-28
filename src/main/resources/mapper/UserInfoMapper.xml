@@ -197,4 +197,59 @@
     </trim>
   </insert>
 
+
+  <update id="updateUserByPhone" parameterType="com.ysc.device.service.domain.entities.UserEntity">
+    update t_user
+    <set>
+      <if test="mobile != null">
+        mobile = #{mobile},
+      </if>
+      <if test="password != null">
+        password = #{password},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName},
+      </if>
+      <if test="penName != null">
+        pen_name = #{penName},
+      </if>
+      <if test="signature != null">
+        signature = #{signature},
+      </if>
+      <if test="imageUrl != null">
+        image_url = #{imageUrl},
+      </if>
+      <if test="qq != null">
+        qq = #{qq},
+      </if>
+      <if test="qqOpenId != null">
+        qq_openId = #{qqOpenId},
+      </if>
+      <if test="wechat != null">
+        wechat = #{wechat},
+      </if>
+      <if test="wechatOpenId != null">
+        wechat_openId = #{wechatOpenId},
+      </if>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="authType != null">
+        auth_type = #{authType},
+      </if>
+      <if test="regIp != null">
+        reg_ip = #{regIp},
+      </if>
+      <if test="regTime != null">
+        reg_time = #{regTime},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="sex != null">
+        sex = #{sex},
+      </if>
+    </set>
+    where mobile = #{mobile}
+  </update>
 </mapper>

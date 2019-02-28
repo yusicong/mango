@@ -1,6 +1,7 @@
 package com.ysc.device.service.utils;
 
 import com.ysc.device.service.domain.dto.RegisterDTO;
+import com.ysc.device.service.domain.request.SmsCodeValidateRequest;
 import com.ysc.device.service.domain.response.SMSResponse;
 
 import javax.net.ssl.*;
@@ -23,12 +24,12 @@ public class SmsUtils {
     private static final String appkey = "298d3a24b1fbd";
     /**
      * 发起https 请求
-     * @param registerDTO
+     * @param request
      * @param
      * @return
      */
-    public  static SMSResponse smsCodeValidated(RegisterDTO registerDTO){
-        String params = "appkey="+appkey+"&amp;phone="+ registerDTO.getMobile()+"&amp;zone="+ registerDTO.getZone()+"&amp;&amp;code="+ registerDTO.getCode();
+    public  static SMSResponse smsCodeValidated(SmsCodeValidateRequest request){
+        String params = "appkey="+appkey+"&amp;phone="+ request.getMobile()+"&amp;zone="+ request.getZone()+"&amp;&amp;code="+ request.getCode();
         return requestData(params);
     }
     /**

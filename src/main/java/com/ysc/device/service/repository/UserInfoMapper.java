@@ -19,4 +19,6 @@ public interface UserInfoMapper {
     UserEntity findUserByQqOpenId(String qqOpenId);
 
     UserEntity findUserByWeChatOpenId(String wechatOpenId);
+
+    int updateUserByPhone(UserEntity userEntity);
 }

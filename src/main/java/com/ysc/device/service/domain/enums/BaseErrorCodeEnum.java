@@ -6,10 +6,15 @@ package com.ysc.device.service.domain.enums;
 public enum BaseErrorCodeEnum implements DictEnum {
 
     LOGIN_STATUS_1(10001, "登录成功"),
-    LOGIN_STATUS_2(20001, "登录失败，用户不存在"),
-    LOGIN_STATUS_3(20002, "登录失败，密码错误"),
+    LOGIN_STATUS_2(20001, "用户不存在"),
+    LOGIN_STATUS_3(20002, "密码错误"),
     LOGIN_STATUS_4(20003, "登录失败，登陆超时"),
-    LOGIN_STATUS_5(20003, "登录失败，未知原因"),
+    LOGIN_STATUS_5(20004, "登录失败，未知原因"),
+
+    UPDATE_STATUS_1(40001, "新密码与旧密码相同"),
+    UPDATE_STATUS_2(40002, "修改成功"),
+    UPDATE_STATUS_3(40002, "修改失败，未知原因"),
+
     REGISTER_STATUS_1(10002, "注册成功"),
     REGISTER_STATUS_2(30001, "注册失败，未知原因"),
     REGISTER_STATUS_3(30002, "注册失败，手机号已存在");

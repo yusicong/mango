@@ -1,9 +1,7 @@
 package com.ysc.device.service.domain.request;
 
-import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-@Data
 public class LoginByMobileRequest {
 
     @NotBlank
