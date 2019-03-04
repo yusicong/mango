@@ -117,11 +117,10 @@ public class UserServiceImpl implements UserService {
                 userEntity.setSex(null != request.getSex() ? request.getSex() : null);
                 /**注册成功*/
                 if (1 == userInfoMapper.insertUser(userEntity)) {
-                    BaseEntity baseEntity = new BaseEntity();
                     /**生成token*/
-                    baseEntity.setToken(TokenUtils.getToken(userEntity));
+                    user.setToken(TokenUtils.getToken(userEntity));
                     baseResponse.setSuccess(true);
-                    baseResponse.setData(baseEntity);
+                    baseResponse.setData(user);
                     baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_1.getValue() + "");
                     baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_1.getText());
                     return baseResponse;
@@ -280,6 +279,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(updateUserInfoRequest), UserEntity.class);
         if (1 == userInfoMapper.updateUserByUuid(userEntity)) {
             baseResponse.setSuccess(true);
+            baseResponse.setData(userInfoMapper.findUserById(userEntity.getUserUuid()));
             baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_2.getValue() + "");
             baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_2.getText());
             return baseResponse;

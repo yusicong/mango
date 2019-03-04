@@ -43,3 +43,9 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+config:
+    cos:
+        secretId: AKIDgDXcR0vbjeQbcQMNYVEj15vWv62lqbhZ
+        secretKey: nNjrlQs77tVBhYDev1sXyA8sOgkaFgtr
+        regionName: ap-shanghai

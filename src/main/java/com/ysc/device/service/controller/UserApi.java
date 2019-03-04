@@ -33,14 +33,11 @@ public class UserApi {
         return userService.register(user);
     }
 
-
-
     /**手机号注册*/
     @PostMapping("/forgetPassword")
     public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordRequest forgetPasswordRequest) {
         return userService.forgetPassword(forgetPasswordRequest);
     }
-
 
     @Application.UserLoginToken
     @GetMapping("/getMessage")
