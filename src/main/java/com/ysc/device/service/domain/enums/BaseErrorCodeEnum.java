@@ -7,7 +7,7 @@ public enum BaseErrorCodeEnum implements DictEnum {
 
     SYStem_ERROR_1(60001,"无token"),
     SYStem_ERROR_2(60002,"token获取失败"),
-    SYStem_ERROR_3(60002,"token验证失败"),
+    SYStem_ERROR_3(60003,"token验证失败"),
 
     LOGIN_STATUS_1(10001, "登录成功"),
     LOGIN_STATUS_2(20001, "用户不存在"),
