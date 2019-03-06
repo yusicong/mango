@@ -19,7 +19,7 @@ import java.util.Map;
 public interface FileService {
 
     /**通过手机号注册*/
-    BaseResponse uploadAvatar(HttpServletRequest httpServletRequest);
+    BaseResponse upload(HttpServletRequest httpServletRequest);
 
     BaseResponse uploadFile(Map<String ,File> fileMap);
 

@@ -16,9 +16,9 @@ public class FileApi {
     FileService fileService;
 
     @Application.UserLoginToken
-    @PostMapping("/uploadAvatar")
+    @PostMapping("/upload")
     @ResponseBody
-    public BaseResponse uploadAvatar(HttpServletRequest httpServletRequest) {
-        return fileService.uploadAvatar(httpServletRequest);
+    public BaseResponse upload(HttpServletRequest httpServletRequest) {
+        return fileService.upload(httpServletRequest);
     }
 }

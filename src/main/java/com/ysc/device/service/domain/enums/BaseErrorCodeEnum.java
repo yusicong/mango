@@ -8,6 +8,7 @@ public enum BaseErrorCodeEnum implements DictEnum {
     SYStem_ERROR_1(60001,"无token"),
     SYStem_ERROR_2(60002,"token获取失败"),
     SYStem_ERROR_3(60003,"token验证失败"),
+    SYStem_ERROR_4(60004,"入参校验失败"),
 
     LOGIN_STATUS_1(10001, "登录成功"),
     LOGIN_STATUS_2(20001, "用户不存在"),
@@ -23,7 +24,11 @@ public enum BaseErrorCodeEnum implements DictEnum {
 
     REGISTER_STATUS_1(10002, "注册成功"),
     REGISTER_STATUS_2(30001, "注册失败，未知原因"),
-    REGISTER_STATUS_3(30002, "注册失败，手机号已存在");
+    REGISTER_STATUS_3(30002, "注册失败，手机号已存在"),
+
+    /**文件errorCode*/
+    FILE_STATUS_1(70001, "文件上传成功"),
+    FILE_STATUS_2(70002, "没有检测到文件");
     /**
      * 获取值
      */
