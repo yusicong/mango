@@ -9,6 +9,8 @@ import com.ysc.device.service.Application;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.service.UserService;
+import com.ysc.device.service.utils.JsonUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -54,10 +56,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     throw new RuntimeException(BaseErrorCodeEnum.SYStem_ERROR_3.getValue()+"");
                 }
                 UserEntity user = userService.findUserById(userId);
+                System.out.println(JsonUtils.toJSONString(user));
                 if (user == null) {
                     throw new RuntimeException(BaseErrorCodeEnum.LOGIN_STATUS_2.getValue()+"");
                 }
                 // 验证 token
+                System.out.println("password是："+user.getPassword());
+                if (StringUtils.isBlank(user.getPassword())){
+                    user.setPassword("a96500909");
+                }
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
                 try {
                     jwtVerifier.verify(token);

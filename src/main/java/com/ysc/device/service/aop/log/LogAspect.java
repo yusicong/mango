@@ -47,7 +47,7 @@ public class LogAspect {
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
-        log.info("方法的返回值 : {}" , ret);
+        log.info("方法的返回值 : {}" , JsonUtils.toJSONString(ret));
     }
     /**后置异常通知*/
     @AfterThrowing("webLog()")
@@ -67,7 +67,7 @@ public class LogAspect {
         log.info("方法环绕start.....");
         try {
             Object o =  pjp.proceed();
-            log.info("方法环绕proceed，结果是 :{}" , o);
+            log.info("方法环绕proceed，结果是 :{}" , JsonUtils.toJSONString(o));
             return o;
         } catch (Throwable e) {
             e.printStackTrace();

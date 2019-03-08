@@ -12,6 +12,7 @@ import com.ysc.device.service.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -30,6 +31,9 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     COSClient cosClient;
+
+    @Value("${config.cos.url}")
+    private String cosUrl;
 
     @Override
     public BaseResponse upload(HttpServletRequest httpServletRequest) {
@@ -111,7 +115,7 @@ public class FileServiceImpl implements FileService {
         List<String> fileSrcList = new ArrayList<>();
         try {
             for (Map.Entry<String, File> entry : fileMap.entrySet()) {
-                fileSrcList.add(entry.getKey());
+                fileSrcList.add(cosUrl+entry.getKey());
                 PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, entry.getKey(), entry.getValue());
                 PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
                 log.info("putObjectResult :{}", JsonUtils.toJSONString(putObjectResult));

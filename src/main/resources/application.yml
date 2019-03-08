@@ -49,3 +49,7 @@ config:
         secretId: AKIDgDXcR0vbjeQbcQMNYVEj15vWv62lqbhZ
         secretKey: nNjrlQs77tVBhYDev1sXyA8sOgkaFgtr
         regionName: ap-shanghai
+        url: https://mgyxz-image-1255371192.cos.ap-shanghai.myqcloud.com/
+#主账户ID：100002640935
+# 用户名：gaosheng
+# 密码：_Gaosheng9314
