@@ -1,12 +1,9 @@
 package com.ysc.device.service.service;
 
-import com.ysc.device.service.domain.request.RegisterRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,9 +15,11 @@ import java.util.Map;
  */
 public interface FileService {
 
-    /**通过手机号注册*/
-    BaseResponse uploadAvatar(HttpServletRequest httpServletRequest);
+    /**
+     * 通过手机号注册
+     */
+    BaseResponse upload(HttpServletRequest httpServletRequest);
 
-    BaseResponse uploadFile(Map<String ,File> fileMap);
+    BaseResponse uploadFile(Map<String, File> fileMap);
 
 }
