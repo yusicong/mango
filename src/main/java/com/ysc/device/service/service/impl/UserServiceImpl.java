@@ -10,6 +10,7 @@ import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
 import com.ysc.device.service.service.UserService;
+import com.ysc.device.service.service.impl.abs.AbsServiceImpl;
 import com.ysc.device.service.utils.JsonUtils;
 import com.ysc.device.service.utils.SmsUtils;
 import com.ysc.device.service.utils.TokenUtils;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Service;
  * @Time : 17:56
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Autowired
     UserInfoMapper userInfoMapper;
@@ -277,6 +278,11 @@ public class UserServiceImpl implements UserService {
     public BaseResponse modifyUserinfo(UpdateUserInfoRequest updateUserInfoRequest) {
         BaseResponse baseResponse = new BaseResponse();
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(updateUserInfoRequest), UserEntity.class);
+
+        BaseResponse isDiff = userinfoIsDifferent(userEntity);
+        if (!isDiff.isSuccess()){
+            return isDiff;
+        }
         if (1 == userInfoMapper.updateUserByUuid(userEntity)) {
             baseResponse.setSuccess(true);
             baseResponse.setData(userInfoMapper.findUserById(userEntity.getUserUuid()));

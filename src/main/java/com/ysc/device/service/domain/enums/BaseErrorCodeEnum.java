@@ -1,8 +1,5 @@
 package com.ysc.device.service.domain.enums;
 
-
-
-
 public enum BaseErrorCodeEnum implements DictEnum {
 
     SYStem_ERROR_1(60001,"无token"),
@@ -17,7 +14,8 @@ public enum BaseErrorCodeEnum implements DictEnum {
 
     UPDATE_STATUS_1(40001, "新密码与旧密码相同"),
     UPDATE_STATUS_2(40002, "修改成功"),
-    UPDATE_STATUS_3(40002, "修改失败，未知原因"),
+    UPDATE_STATUS_3(40003, "修改失败，未知原因"),
+    UPDATE_STATUS_4(40004, "修改失败，手机号已存在"),
 
     QUERY_STATUS_1(50001, "没有匹配的结果"),
 
