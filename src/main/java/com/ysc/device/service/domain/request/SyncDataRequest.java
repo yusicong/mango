@@ -1,7 +1,5 @@
 package com.ysc.device.service.domain.request;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import java.util.List;
  * Create by yusicong
  * Date 2019/7/17 14:48
  */
-@Data
 public class SyncDataRequest {
     /**
      * 用户唯一标识
