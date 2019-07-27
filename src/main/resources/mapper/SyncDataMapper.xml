@@ -67,5 +67,5 @@
     </where>
   </insert>
   <!--查询码字数据-->
-  <select id="SelectCodewordData" resultMap="BaseResultMap" parameterMap="com.ysc.device.service.domain.entities."
+<!--  <select id="SelectCodewordData" resultMap="BaseResultMap" parameterMap="com.ysc.device.service.domain.entities."-->
 </mapper>
