@@ -30,4 +30,36 @@ public class SyncDataRequest {
      * 所需更新数据体
      */
     private List<SyncDataRequestBody> data;
+
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
+    }
+
+    public String getDeviceUuid() {
+        return deviceUuid;
+    }
+
+    public void setDeviceUuid(String deviceUuid) {
+        this.deviceUuid = deviceUuid;
+    }
+
+    public LocalDateTime getSyncTime() {
+        return syncTime;
+    }
+
+    public void setSyncTime(LocalDateTime syncTime) {
+        this.syncTime = syncTime;
+    }
+
+    public List<SyncDataRequestBody> getData() {
+        return data;
+    }
+
+    public void setData(List<SyncDataRequestBody> data) {
+        this.data = data;
+    }
 }

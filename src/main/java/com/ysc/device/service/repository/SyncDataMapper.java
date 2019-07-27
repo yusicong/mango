@@ -10,10 +10,10 @@ public interface SyncDataMapper {
     /**
      * 插入或更新数据
      */
-    int InsertOrUpdateCodewordData(SyncDataEntity request);
+    int insertOrUpdateCodewordData(SyncDataEntity request);
 
     /**
      * 查询数据
      */
-    int SelectCodewordData(SyncDataEntity request);
+    int selectCodewordData(SyncDataEntity request);
 }

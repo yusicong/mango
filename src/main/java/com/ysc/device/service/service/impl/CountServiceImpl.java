@@ -29,7 +29,7 @@ public class CountServiceImpl implements CountService{
             SyncDataEntity syncDataEntity = JsonUtils.toObject(JsonUtils.toJSONString(syncDataRequestBody), SyncDataEntity.class);
             syncDataEntity.setUserUuid(request.getUserUuid());
             syncDataEntity.setDeviceUuid(request.getDeviceUuid());
-            syncDataMapper.InsertOrUpdateCodewordData(syncDataEntity);
+            syncDataMapper.insertOrUpdateCodewordData(syncDataEntity);
         }
         LocalDateTime beginSyncTime = request.getSyncTime();
         LocalDateTime endSyncTime = LocalDateTime.now();
