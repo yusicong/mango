@@ -67,5 +67,7 @@
     </where>
   </insert>
   <!--查询码字数据-->
-<!--  <select id="SelectCodewordData" resultMap="BaseResultMap" parameterMap="com.ysc.device.service.domain.entities."-->
+  <select id="selectCodewordData" resultMap="BaseResultMap" parameterMap="com.ysc.device.service.domain.entities.">
+        select * from t_sync_data where
+  </select>
 </mapper>

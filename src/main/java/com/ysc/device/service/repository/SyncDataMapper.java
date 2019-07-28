@@ -15,5 +15,5 @@ public interface SyncDataMapper {
     /**
      * 查询数据
      */
-    int SelectCodewordData(SyncDataEntity request);
+    int selectCodewordData(SyncDataEntity request);
 }
