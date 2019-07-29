@@ -2,72 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysc.device.service.repository.SyncDataMapper">
 
-  <resultMap id="BaseResultMap" type="com.ysc.device.service.domain.entities.SyncDataEntity">
-    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
-    <result column="device_uuid" jdbcType="VARCHAR" property="deviceUuid" />
-    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
-    <result column="sycn_time" jdbcType="TIMESTAMP" property="sycnTime" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.ysc.device.service.domain.entities.SyncDataEntity">
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="device_uuid" jdbcType="VARCHAR" property="deviceUuid"/>
+        <result column="user_uuid" jdbcType="VARCHAR" property="userUuid"/>
+        <result column="sycn_time" jdbcType="TIMESTAMP" property="sycnTime"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
-  <insert id="insertOrUpdateCodewordData" parameterType="com.ysc.device.service.domain.entities.SyncDataEntity" >
-    insert into t_sync_data
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="uuid != null" >
-        uuid,
-      </if>
-      <if test="deviceUuid != null" >
-        device_uuid,
-      </if>
-      <if test="userUuid != null" >
-        user_uuid,
-      </if>
-      <if test="sycnTime != null" >
-        sycn_time,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-        create_time,
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="uuid != null" >
-        #{uuid,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceUuid != null" >
-        #{deviceUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="userUuid != null" >
-        #{userUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="sycnTime != null" >
-        #{sycnTime,jdbcType=TIMESTAMP},
-      </if>
-      now(),
-    </trim>
-    ON DUPLICATE KEY
-    update
-    <trim suffixOverrides=",">
-      <if test="deviceUuid != null" >
-        device_uuid = #{deviceUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="userUuid != null" >
-        user_uuid = #{userUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="sycnTime != null" >
-        sycn_time = #{sycnTime,jdbcType=INTEGER},
-      </if>
-    </trim>
-    <where>
-      <if test="uuid != null">
-        AND uuid= #{uuid}
-      </if>
-    </where>
-  </insert>
-  <!--查询码字数据-->
-  <select id="selectCodewordData" resultMap="BaseResultMap" parameterMap="com.ysc.device.service.domain.entities.">
-        select * from t_sync_data where
+    <insert id="insertOrUpdateCodewordData" parameterType="com.ysc.device.service.domain.entities.SyncDataEntity">
+        insert into t_sync_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="deviceUuid != null">
+                device_uuid,
+            </if>
+            <if test="userUuid != null">
+                user_uuid,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            create_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceUuid != null">
+                #{deviceUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="userUuid != null">
+                #{userUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            now(),
+        </trim>
+        ON DUPLICATE KEY
+        update t_sync_data
+        <set>
+            <if test="deviceUuid != null">
+                device_uuid = #{deviceUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="userUuid != null">
+                user_uuid = #{userUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            <if test="uuid != null">
+                AND uuid= #{uuid,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </insert>
+    <!--查询码字数据-->
+    <select id="selectCodewordData" resultMap="BaseResultMap" parameterType="com.ysc.device.service.domain.request.RangeGetSyncDataByTimeRequest">
+        select * from t_sync_data
+        where unix_timestamp(update_time) &gt; unix_timestamp(#{beginTime})
+        and unix_timestamp(update_time) &lt;= unix_timestamp(#{endTime})
+        and user_uuid = #{userUuid}
+        and uuid not in
+        <foreach collection="excludeUuidList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
   </select>
 </mapper>

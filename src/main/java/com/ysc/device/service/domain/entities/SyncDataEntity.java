@@ -4,10 +4,6 @@ package com.ysc.device.service.domain.entities;
  * Create by yusicong
  * Date 2019/7/17 14:50
  */
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 public class SyncDataEntity extends BaseEntity {
     /**
      * 本条数据唯一标识

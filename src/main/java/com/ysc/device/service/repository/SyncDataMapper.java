@@ -1,6 +1,9 @@
 package com.ysc.device.service.repository;
 
 import com.ysc.device.service.domain.entities.SyncDataEntity;
+import com.ysc.device.service.domain.request.RangeGetSyncDataByTimeRequest;
+
+import java.util.List;
 
 /**
  * Create by yusicong
@@ -15,5 +18,5 @@ public interface SyncDataMapper {
     /**
      * 查询数据
      */
-    int selectCodewordData(SyncDataEntity request);
+    List<SyncDataEntity> selectCodewordData(RangeGetSyncDataByTimeRequest request);
 }
