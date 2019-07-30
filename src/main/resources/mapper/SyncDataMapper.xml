@@ -27,6 +27,7 @@
             <if test="content != null">
                 content,
             </if>
+            update_time,
             create_time,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -43,10 +44,12 @@
                 #{content,jdbcType=VARCHAR},
             </if>
             now(),
+            now(),
         </trim>
         ON DUPLICATE KEY
-        update t_sync_data
-        <set>
+        update
+        <trim suffixOverrides=",">
+
             <if test="deviceUuid != null">
                 device_uuid = #{deviceUuid,jdbcType=VARCHAR},
             </if>
@@ -54,17 +57,13 @@
                 user_uuid = #{userUuid,jdbcType=VARCHAR},
             </if>
             <if test="content != null">
-                content = #{content,jdbcType=VARCHAR},
+                content = #{content,jdbcType=VARCHAR}
             </if>
-        </set>
-        <where>
-            <if test="uuid != null">
-                AND uuid= #{uuid,jdbcType=VARCHAR}
-            </if>
-        </where>
+        </trim>
     </insert>
     <!--查询码字数据-->
-    <select id="selectCodewordData" resultMap="BaseResultMap" parameterType="com.ysc.device.service.domain.request.RangeGetSyncDataByTimeRequest">
+    <select id="selectCodewordData" resultMap="BaseResultMap"
+            parameterType="com.ysc.device.service.domain.request.RangeGetSyncDataByTimeRequest">
         select * from t_sync_data
         where unix_timestamp(update_time) &gt; unix_timestamp(#{beginTime})
         and unix_timestamp(update_time) &lt;= unix_timestamp(#{endTime})
@@ -73,5 +72,5 @@
         <foreach collection="excludeUuidList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
-  </select>
+    </select>
 </mapper>

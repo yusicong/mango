@@ -5,6 +5,7 @@ import com.ysc.device.service.domain.request.SyncDataRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.CountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +20,7 @@ public class CountApi {
 //    @Application.UserLoginToken
     @PostMapping("/syncStatistics")
     @ResponseBody
-    public BaseResponse syncStatistics(@RequestBody SyncDataRequest request) {
+    public BaseResponse syncStatistics(@Validated @RequestBody SyncDataRequest request) {
         return countService.syncStatistics(request);
     }
 }
