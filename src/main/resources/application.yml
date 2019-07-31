@@ -31,6 +31,8 @@ spring:
           min-idle: 1
           max-active: 1000
           max-wait: -1
+    jackson:
+      default-property-inclusion: non_null #空值不返回
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
