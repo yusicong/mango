@@ -60,7 +60,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse loginByMobile(LoginByMobileRequest request) {
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<UserEntity> baseResponse = new BaseResponse<>();
         UserEntity userEntity = userInfoMapper.findUserByPhone(request.getMobile());
         /**判断用户是否存在*/
         BaseResponse userIsExistByMobileResponse = userIsExistByMobile(userEntity);
@@ -89,7 +89,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse loginByOther(LoginByOtherRequest request) {
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<BaseEntity> baseResponse = new BaseResponse<BaseEntity>();
         /**qq登陆*/
         if (AuthTypeEnum.AUTH_TYPE_ENUM_2.getValue() == request.getAuthType()) {
             /**用户不存在 自动注册*/
@@ -250,7 +250,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse modifyUserinfo(UpdateUserInfoRequest updateUserInfoRequest) {
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<UserEntity> baseResponse = new BaseResponse<>();
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(updateUserInfoRequest), UserEntity.class);
 
         BaseResponse isDiff = userinfoIsDifferent(userEntity);
