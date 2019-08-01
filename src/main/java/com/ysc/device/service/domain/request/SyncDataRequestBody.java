@@ -3,9 +3,9 @@ package com.ysc.device.service.domain.request;
 import lombok.Data;
 
 /**
- * Create by yusicong
+ * Create by idea
  * Date 2019/7/17 14:50
- * @author enmonster
+ * @author yusicong
  */
 @Data
 public class SyncDataRequestBody{

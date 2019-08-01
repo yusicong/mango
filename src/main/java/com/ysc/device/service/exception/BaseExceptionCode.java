@@ -3,7 +3,7 @@ package com.ysc.device.service.exception;
 /**
  *
  *
- * @author enmonster
+ * @author yusicong
  * @Date 2017/7/6
  * @Time 下午2:54
  * @Description

@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 码字数据查询入参
- * @author enmonster
+ * @author yusicong
  * */
 @Data
 public class RangeGetSyncDataByTimeRequest {

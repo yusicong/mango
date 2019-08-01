@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 /**
- * @author enmonster
+ * @author yusicong
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired

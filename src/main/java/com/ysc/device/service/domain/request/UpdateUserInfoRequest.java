@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * null字段不显示
- * @author enmonster
+ * @author yusicong
  */
 @Data
 public class UpdateUserInfoRequest {

@@ -1,6 +1,6 @@
 package com.ysc.device.service.domain.enums;
 /**
- * @author enmonster
+ * @author yusicong
  * 用户登录类型
  */
 public enum AuthTypeEnum implements DictEnum {

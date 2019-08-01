@@ -2,7 +2,7 @@ package com.ysc.device.service.domain.dto;
 
 import lombok.Data;
 /**
- * @author enmonster
+ * @author yusicong
  */
 @Data
 public class UploadImgDTO {

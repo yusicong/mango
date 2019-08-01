@@ -3,7 +3,7 @@ package com.ysc.device.service.domain.entities;
 import lombok.Data;
 
 /**
- * Create by yusicong
+ * Create by idea
  * Date 2019/7/17 14:50
  */
 @Data

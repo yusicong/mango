@@ -6,7 +6,7 @@ import com.ysc.device.service.domain.entities.UserEntity;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author enmonster
+ * @author yusicong
  */
 public class TokenUtils {
 

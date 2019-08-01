@@ -6,9 +6,9 @@ import com.ysc.device.service.domain.request.RangeGetSyncDataByTimeRequest;
 import java.util.List;
 
 /**
- * Create by yusicong
+ * Create by idea
  * Date 2019/7/17 15:21
- * @author enmonster
+ * @author yusicong
  */
 public interface SyncDataMapper {
     /**

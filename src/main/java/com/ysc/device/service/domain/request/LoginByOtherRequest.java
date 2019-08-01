@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 /**
- * @author enmonster
+ * @author yusicong
  */
 @Data
 public class LoginByOtherRequest {

@@ -3,7 +3,7 @@ package com.ysc.device.service.utils;
 import java.util.UUID;
 
 /**
- * @author enmonster
+ * @author yusicong
  */
 public class UserUtils {
 

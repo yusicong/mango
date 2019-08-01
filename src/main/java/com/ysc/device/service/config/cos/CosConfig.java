@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author enmonster
+ * @author yusicong
  */
 @Configuration
 public class CosConfig {

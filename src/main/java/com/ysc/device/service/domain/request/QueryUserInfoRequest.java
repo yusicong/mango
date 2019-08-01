@@ -3,7 +3,7 @@ package com.ysc.device.service.domain.request;
 import lombok.Data;
 
 /**
- * @author enmonster
+ * @author yusicong
  */
 @Data
 public class QueryUserInfoRequest{

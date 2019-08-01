@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Create by yusicong
+ * Create by idea
  * Date 2019/7/17 14:48
- * @author enmonster
+ * @author yusicong
  */
 @Data
 public class SyncDataRequest {
