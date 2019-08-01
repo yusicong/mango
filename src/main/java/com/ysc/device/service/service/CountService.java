@@ -6,6 +6,7 @@ import com.ysc.device.service.domain.response.BaseResponse;
 /**
  * Create by yusicong
  * Date 2019/7/17 15:18
+ * @author enmonster
  */
 public interface CountService {
 

@@ -1,7 +1,5 @@
 package com.ysc.device.service.utils;
 
-
-
 import org.springframework.util.StringUtils;
 
 import java.text.DateFormat;
@@ -14,16 +12,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @Author Chase Lv(蛰龙)
- * @Date 2017/7/25
- * @Time 下午2:35
- * @Description
+ * @author enmonster
  */
 public class DateUtil {
 
     public static final String SIMPLE_DATE_PARTEN = "yyyy-MM-dd";
     public static final String DATE_PARTEN = "yyyy-MM-dd HH:mm:ss";
-    public static final String DATE_PARTEN_Chinese = "yyyy年MM月dd日HH:mm";
+    public static final String DATE_PARTEN_CHINESE = "yyyy年MM月dd日HH:mm";
     public static final String DATE_PARTEN_MILLI = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String DATE_PARTEN_YYMMDD = "yyyyMMdd";
     private static DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -155,28 +150,33 @@ public class DateUtil {
     }
 
     private static ThreadLocal<SimpleDateFormat> threadLocal = new ThreadLocal<SimpleDateFormat>() {
+        @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat(DATE_PARTEN);
         }
     };
 
     private static ThreadLocal<SimpleDateFormat> threadLocal_simple = new ThreadLocal<SimpleDateFormat>() {
+        @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat(SIMPLE_DATE_PARTEN);
         }
     };
     private static ThreadLocal<SimpleDateFormat> threadLocal_milli = new ThreadLocal<SimpleDateFormat>() {
+        @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat(DATE_PARTEN_MILLI);
         }
     };
     private static ThreadLocal<SimpleDateFormat> threadLocal_chinese = new ThreadLocal<SimpleDateFormat>() {
+        @Override
         protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat(DATE_PARTEN_Chinese);
+            return new SimpleDateFormat(DATE_PARTEN_CHINESE);
         }
     };
 
     private static ThreadLocal<SimpleDateFormat> threadLocal_yymmdd = new ThreadLocal<SimpleDateFormat>() {
+        @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat(DATE_PARTEN_YYMMDD);
         }

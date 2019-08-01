@@ -39,9 +39,9 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
             return baseResponse;
         }
         /**验证码校验*/
-        BaseResponse VerificationCodeCheckResponse = VerificationCodeCheck(registerRequest.getCode(), registerRequest.getMobile(), registerRequest.getZone());
-        if (!VerificationCodeCheckResponse.isSuccess()) {
-            return VerificationCodeCheckResponse;
+        BaseResponse verificationCodeCheckResponse = verificationCodeCheck(registerRequest.getCode(), registerRequest.getMobile(), registerRequest.getZone());
+        if (!verificationCodeCheckResponse.isSuccess()) {
+            return verificationCodeCheckResponse;
         }
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(registerRequest), UserEntity.class);
         userEntity.setUserUuid(UserUtils.getRandomUuid());
@@ -91,7 +91,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
     public BaseResponse loginByOther(LoginByOtherRequest request) {
         BaseResponse<BaseEntity> baseResponse = new BaseResponse<BaseEntity>();
         /**qq登陆*/
-        if (AuthTypeEnum.AUTH_TYPE_ENUM_2.getValue() == request.getAuthType()) {
+        if (AuthTypeEnum.AUTH_TYPE_ENUM_2.getValue().equals(request.getAuthType())) {
             /**用户不存在 自动注册*/
             UserEntity user = userInfoMapper.findUserByQqOpenId(request.getOpenid());
             if (null == user) {
@@ -130,7 +130,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         }
 
         /**微信登陆*/
-        if (AuthTypeEnum.AUTH_TYPE_ENUM_3.getValue() == request.getAuthType()) {
+        if (AuthTypeEnum.AUTH_TYPE_ENUM_3.getValue().equals(request.getAuthType())) {
             /**用户不存在 自动注册*/
             UserEntity user = userInfoMapper.findUserByWeChatOpenId(request.getOpenid());
             if (null == user) {
@@ -189,9 +189,9 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         }
         BaseResponse baseResponse = new BaseResponse();
         /**验证码校验*/
-        BaseResponse VerificationCodeCheckResponse = VerificationCodeCheck(forgetPasswordRequest.getCode(), forgetPasswordRequest.getMobile(), forgetPasswordRequest.getZone());
-        if (!VerificationCodeCheckResponse.isSuccess()) {
-            return VerificationCodeCheckResponse;
+        BaseResponse verificationCodeCheckResponse = verificationCodeCheck(forgetPasswordRequest.getCode(), forgetPasswordRequest.getMobile(), forgetPasswordRequest.getZone());
+        if (!verificationCodeCheckResponse.isSuccess()) {
+            return verificationCodeCheckResponse;
         }
         /**新密码与旧密码相同*/
         if (forgetPasswordRequest.getPassword().equals(userEntity.getPassword())) {

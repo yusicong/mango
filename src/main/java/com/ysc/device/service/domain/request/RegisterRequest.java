@@ -5,7 +5,10 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
-
+/**
+ * @author enmonster
+ */
+@Data
 public class RegisterRequest extends BaseEntity {
 
     /**
@@ -37,46 +40,5 @@ public class RegisterRequest extends BaseEntity {
      */
     @NotNull
     private Integer code;
-
-
-    public String getAuthType() {
-        return authType;
-    }
-
-    public void setAuthType(String authType) {
-        this.authType = authType;
-    }
-
-    public Integer getZone() {
-        return zone;
-    }
-
-    public void setZone(Integer zone) {
-        this.zone = zone;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
 
 }

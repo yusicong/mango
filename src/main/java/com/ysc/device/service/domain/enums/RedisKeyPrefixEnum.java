@@ -1,5 +1,8 @@
 package com.ysc.device.service.domain.enums;
 
+/**
+ * @author enmonster
+ */
 public enum RedisKeyPrefixEnum {
 
     DEVICE_1("VM:SERVICE:DEVICE_1"),

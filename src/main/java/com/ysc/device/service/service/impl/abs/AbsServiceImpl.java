@@ -33,10 +33,10 @@ public class AbsServiceImpl {
         return BaseResponse.createSuccessResult("");
     }
 
-    public BaseResponse VerificationCodeCheck(Integer code,String mobile,Integer zone) {
+    public BaseResponse verificationCodeCheck(Integer code, String mobile, Integer zone) {
         BaseResponse baseResponse = new BaseResponse();
 
-        if (code.equals("96500909")) {
+        if ("96500909".equals(code)) {
             return baseResponse.success(null);
         }
         SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();

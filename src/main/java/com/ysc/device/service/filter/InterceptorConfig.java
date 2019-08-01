@@ -13,6 +13,9 @@ import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author enmonster
+ */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override

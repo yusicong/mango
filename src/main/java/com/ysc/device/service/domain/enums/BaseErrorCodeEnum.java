@@ -1,4 +1,9 @@
 package com.ysc.device.service.domain.enums;
+/**
+ * @author enmonster
+ * @date 2016/10/31
+ * 错误代码
+ */
 
 public enum BaseErrorCodeEnum implements DictEnum {
 

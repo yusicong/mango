@@ -1,7 +1,7 @@
 package com.ysc.device.service.domain.enums;
-
-
-
+/**
+ * @author enmonster
+ */
 
 public enum MOBSmsEnum implements DictEnum {
 

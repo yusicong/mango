@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Create by yusicong
  * Date 2019/7/17 15:21
+ * @author enmonster
  */
 public interface SyncDataMapper {
     /**

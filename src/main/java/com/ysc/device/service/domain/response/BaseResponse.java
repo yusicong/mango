@@ -1,9 +1,5 @@
 package com.ysc.device.service.domain.response;
 
-
-
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.ysc.device.service.exception.BaseException;
 import com.ysc.device.service.exception.BaseExceptionCode;
 
@@ -17,7 +13,6 @@ import java.io.Serializable;
  * @Time 上午7:30
  * @Description
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class BaseResponse<T> implements Serializable {
 
     private static final long serialVersionUID = -414005101985309470L;

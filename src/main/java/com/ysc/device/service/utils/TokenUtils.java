@@ -5,6 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.ysc.device.service.domain.entities.UserEntity;
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * @author enmonster
+ */
 public class TokenUtils {
 
     public static String getToken(UserEntity user) {

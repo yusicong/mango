@@ -19,8 +19,8 @@ public class SmsUtils {
         System.out.println(result);
     }
 
-    private static final String address = "https://webapi.sms.mob.com/sms/verify";
-    private static final String appkey = "298d3a24b1fbd";
+    private static final String ADDRESS = "https://webapi.sms.mob.com/sms/verify";
+    private static final String APPKEY = "298d3a24b1fbd";
     /**
      * 发起https 请求
      * @param request
@@ -28,7 +28,7 @@ public class SmsUtils {
      * @return
      */
     public  static SMSResponse smsCodeValidated(SmsCodeValidateRequest request){
-        String params = "appkey="+appkey+"&amp;phone="+ request.getMobile()+"&amp;zone="+ request.getZone()+"&amp;&amp;code="+ request.getCode();
+        String params = "appkey="+APPKEY+"&amp;phone="+ request.getMobile()+"&amp;zone="+ request.getZone()+"&amp;&amp;code="+ request.getCode();
         return requestData(params);
     }
     /**
@@ -43,8 +43,11 @@ public class SmsUtils {
         try {
             // Create a trust manager that does not validate certificate chains
             TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager(){
+                @Override
                 public X509Certificate[] getAcceptedIssuers(){return null;}
+                @Override
                 public void checkClientTrusted(X509Certificate[] certs, String authType){}
+                @Override
                 public void checkServerTrusted(X509Certificate[] certs, String authType){}
             }};
 
@@ -54,6 +57,7 @@ public class SmsUtils {
 
             //ip host verify
             HostnameVerifier hv = new HostnameVerifier() {
+                @Override
                 public boolean verify(String urlHostName, SSLSession session) {
                     return urlHostName.equals(session.getPeerHost());
                 }
@@ -64,7 +68,7 @@ public class SmsUtils {
 
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
-            URL url = new URL(address);
+            URL url = new URL(ADDRESS);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");// POST
             conn.setConnectTimeout(3000);
@@ -90,8 +94,9 @@ public class SmsUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (conn != null)
+            if (conn != null) {
                 conn.disconnect();
+            }
         }
         return null;
     }

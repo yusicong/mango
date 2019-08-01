@@ -16,6 +16,7 @@ import java.io.IOException;
 /**
  * Create by yusicong
  * Date 2019/3/8 15:19
+ * @author enmonset
  */
 @Slf4j
 @Service
@@ -27,19 +28,20 @@ public class MiPushServiceImpl implements MiPushService {
         String messagePayload = "This is a message";
         String title = "notification title";
         String description = "notification description";
-        String useraccount = "f6c4c04f-3399-4f79-82ba-f46f786e80b7";    //useraccount非空白, 不能包含逗号, 长度小于128
+        //userAccount非空白, 不能包含逗号, 长度小于128
+        String userAccount = "f6c4c04f-3399-4f79-82ba-f46f786e80b7";
         Message message = new Message.Builder()
                 .title(title)
                 .description(description).payload(messagePayload)
                 .restrictedPackageName("com.mango.mgyxz")
-                .notifyType(1)     // 使用默认提示音提示
+                // 使用默认提示音提示
+                .notifyType(1)
                 .build();
         try {
-            Result result = sender.sendToUserAccount(message, useraccount, 3); //根据useraccount, 发送消息到指定设备上
+            //根据userAccount, 发送消息到指定设备上
+            Result result = sender.sendToUserAccount(message, userAccount, 3);
             return BaseResponse.createSuccessResult(result);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         return null;
