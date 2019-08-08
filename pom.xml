@@ -25,13 +25,11 @@
         <version>1.4.3.RELEASE</version>
     </parent>
     <dependencies>
-
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-typehandlers-jsr310</artifactId>
             <version>1.0.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -45,7 +43,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -58,8 +55,8 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.mybatis</groupId>-->
-            <!--<artifactId>mybatis-typehandlers-jsr310</artifactId>-->
+        <!--<groupId>org.mybatis</groupId>-->
+        <!--<artifactId>mybatis-typehandlers-jsr310</artifactId>-->
         <!--</dependency>-->
 
         <!--redis-->
@@ -156,21 +153,23 @@
             <artifactId>mipush</artifactId>    <!--自定义-->
             <version>1.0</version> <!--自定义-->
             <scope>system</scope> <!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
-            <systemPath>${basedir}/src/main/resources/WEB-INF/libs/MiPush_SDK_Server_2_2_20.jar</systemPath> <!--项目根目录下的lib文件夹下-->
+            <systemPath>${basedir}/src/main/resources/WEB-INF/libs/MiPush_SDK_Server_2_2_20.jar
+            </systemPath> <!--项目根目录下的lib文件夹下-->
         </dependency>
         <dependency>
             <groupId>jsonSimple</groupId>  <!--自定义-->
             <artifactId>jsonSimple</artifactId>    <!--自定义-->
             <version>1.0</version> <!--自定义-->
             <scope>system</scope> <!--system，类似provided，需要显式提供依赖的jar以后，Maven就不会在Repository中查找它-->
-            <systemPath>${basedir}/src/main/resources/WEB-INF/libs/json-simple-1.1.1.jar</systemPath> <!--项目根目录下的lib文件夹下-->
+            <systemPath>${basedir}/src/main/resources/WEB-INF/libs/json-simple-1.1.1.jar
+            </systemPath> <!--项目根目录下的lib文件夹下-->
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>miPush</groupId>-->
-            <!--<artifactId>miPush</artifactId>-->
-            <!--<version>0.0.1</version>-->
-            <!--<scope>system</scope>-->
-            <!--<systemPath>${basedir}libs/MiPush.SDK.Server-2.2.20.jar</systemPath>-->
+        <!--<groupId>miPush</groupId>-->
+        <!--<artifactId>miPush</artifactId>-->
+        <!--<version>0.0.1</version>-->
+        <!--<scope>system</scope>-->
+        <!--<systemPath>${basedir}libs/MiPush.SDK.Server-2.2.20.jar</systemPath>-->
         <!--</dependency>-->
 
 
@@ -178,7 +177,13 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
         </dependency>
-
+        <!--rocketMQ begin-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <!--rocketMQ end-->
     </dependencies>
 
     <build>
