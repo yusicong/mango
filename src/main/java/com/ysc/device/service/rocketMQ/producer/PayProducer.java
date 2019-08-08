@@ -27,6 +27,7 @@ public class PayProducer {
         producer = new DefaultMQProducer(producerGroup);
         // 指定nameServer地址,多个地址之间以 ; 隔开
         producer.setNamesrvAddr(nameServer);
+        producer.setSendMsgTimeout(9999);
         start();
     }
 

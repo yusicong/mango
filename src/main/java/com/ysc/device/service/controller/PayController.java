@@ -30,16 +30,16 @@ public class PayController {
     private static final String TOPIC = "pay_test_topic";
 
 
-//    @RequestMapping("/api/v1/pay_cb")
-//    public Object callback(String text) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
-//        // 创建消息  主题   二级分类   消息内容好的字节数组
-//        Message message = new Message(TOPIC, "taga", ("hello rocketMQ " + text).getBytes());
-//
-//        SendResult send = payProducer.getProducer().send(message);
-//
-//        System.out.println(send);
-//
-//        return new HashMap<>();
-//    }
+    @RequestMapping("/v1/pay_cb")
+    public Object callback(String text) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
+        // 创建消息  主题   二级分类   消息内容好的字节数组
+        Message message = new Message(TOPIC, "taga", ("hello rocketMQ " + text).getBytes());
+
+        SendResult send = payProducer.getProducer().send(message);
+
+        System.out.println(send);
+
+        return new HashMap<>();
+    }
 
 }
