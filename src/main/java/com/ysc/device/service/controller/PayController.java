@@ -34,9 +34,7 @@ public class PayController {
     public Object callback(String text) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
         // 创建消息  主题   二级分类   消息内容好的字节数组
         Message message = new Message(TOPIC, "taga", ("hello rocketMQ " + text).getBytes());
-
         SendResult send = payProducer.getProducer().send(message);
-
         System.out.println(send);
 
         return new HashMap<>();

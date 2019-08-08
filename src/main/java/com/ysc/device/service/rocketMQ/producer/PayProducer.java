@@ -25,6 +25,8 @@ public class PayProducer {
 
     public PayProducer() {
         producer = new DefaultMQProducer(producerGroup);
+        //关闭默认vip 否则自动走10911端口
+        producer.setVipChannelEnabled(false);
         // 指定nameServer地址,多个地址之间以 ; 隔开
         producer.setNamesrvAddr(nameServer);
         producer.setSendMsgTimeout(9999);
