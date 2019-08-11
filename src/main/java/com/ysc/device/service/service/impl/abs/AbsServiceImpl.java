@@ -3,12 +3,8 @@ package com.ysc.device.service.service.impl.abs;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.enums.ErrorCodeEnum;
-import com.ysc.device.service.domain.enums.MOBSmsEnum;
-import com.ysc.device.service.domain.request.SmsCodeValidateRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
-import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
-import com.ysc.device.service.utils.SmsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AbsServiceImpl {
@@ -36,23 +32,24 @@ public class AbsServiceImpl {
     public BaseResponse verificationCodeCheck(Integer code, String mobile, Integer zone) {
         BaseResponse baseResponse = new BaseResponse();
 
-        if ("96500909".equals(code)) {
-            return baseResponse.success(null);
-        }
-        SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
-        smsCodeValidateRequest.setCode(code);
-        smsCodeValidateRequest.setMobile(mobile);
-        smsCodeValidateRequest.setZone(zone);
-        SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
-        /**验证码校验失败*/
-        if (smsResponse.getStatus() != 200) {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(smsResponse.getStatus() + "");
-            baseResponse.setErrorMessage(MOBSmsEnum.getText(smsResponse.getStatus()));
-            return baseResponse;
-        } else {
-            return baseResponse.success(null);
-        }
+        return baseResponse.success("96500909".equals(code));
+//        if ("96500909".equals(code)) {
+//            return baseResponse.success(null);
+//        }
+//        SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
+//        smsCodeValidateRequest.setCode(code);
+//        smsCodeValidateRequest.setMobile(mobile);
+//        smsCodeValidateRequest.setZone(zone);
+//        SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
+//        /**验证码校验失败*/
+//        if (smsResponse.getStatus() != 200) {
+//            baseResponse.setSuccess(false);
+//            baseResponse.setErrorCode(smsResponse.getStatus() + "");
+//            baseResponse.setErrorMessage(MOBSmsEnum.getText(smsResponse.getStatus()));
+//            return baseResponse;
+//        } else {
+//            return baseResponse.success(null);
+//        }
     }
 
     public BaseResponse userIsExistByMobile(UserEntity userEntity){

@@ -2,7 +2,6 @@ package com.ysc.device.service.controller;
 
 import com.ysc.device.service.Application;
 import com.ysc.device.service.aop.log.annotation.ControllerLogger;
-import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.UserService;
@@ -37,9 +36,9 @@ public class UserApi {
         return userService.register(user);
     }
 
-    /**手机号注册*/
+    /**忘记密码*/
     @ControllerLogger
-    @PostMapping("/forgetPassword")
+    @PostMapping("/forgetP")
     public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordRequest forgetPasswordRequest) {
         return userService.forgetPassword(forgetPasswordRequest);
     }
@@ -51,6 +50,7 @@ public class UserApi {
         return "你已通过验证";
     }
 
+    /**获取用户信息*/
     @ControllerLogger
     @Application.UserLoginToken
     @PostMapping("/getUserInfo")
@@ -58,6 +58,7 @@ public class UserApi {
         return userService.getUserInfo(queryUserInfoRequest);
     }
 
+    /**修改用户信息*/
     @ControllerLogger
     @Application.UserLoginToken
     @PostMapping("/modifyUserinfo")
