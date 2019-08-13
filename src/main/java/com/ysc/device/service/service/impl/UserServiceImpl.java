@@ -1,6 +1,6 @@
 package com.ysc.device.service.service.impl;
 
-import com.ysc.device.service.domain.entities.BaseEntity;
+import com.ysc.device.service.domain.entities.base.BaseEntity;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.AuthTypeEnum;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;

@@ -1,4 +1,4 @@
-package com.ysc.device.service.domain.entities;
+package com.ysc.device.service.domain.entities.base;
 
 import lombok.Data;
 

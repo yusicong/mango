@@ -1,10 +1,12 @@
 package com.ysc.device.service.domain.entities;
 
+import com.ysc.device.service.domain.entities.base.BaseEntity;
 import lombok.Data;
 
 /**
  * Create by idea
  * Date 2019/7/17 14:50
+ * @author yusicong
  */
 @Data
 public class SyncDataEntity extends BaseEntity {

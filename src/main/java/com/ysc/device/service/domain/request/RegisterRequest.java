@@ -1,6 +1,6 @@
 package com.ysc.device.service.domain.request;
 
-import com.ysc.device.service.domain.entities.BaseEntity;
+import com.ysc.device.service.domain.entities.base.BaseEntity;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
