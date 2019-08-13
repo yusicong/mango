@@ -2,6 +2,9 @@ package com.ysc.device.service.utils;
 
 import java.util.UUID;
 
+/**
+ * @author yusicong
+ */
 public class UserUtils {
 
     private static final String NICKNAME = "小芒果";

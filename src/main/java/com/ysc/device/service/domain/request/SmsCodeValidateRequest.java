@@ -1,9 +1,13 @@
 package com.ysc.device.service.domain.request;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
-
+/**
+ * @author yusicong
+ */
+@Data
 public class SmsCodeValidateRequest {
 
     /**
@@ -23,28 +27,4 @@ public class SmsCodeValidateRequest {
      */
     @NotNull
     private Integer code;
-
-    public Integer getZone() {
-        return zone;
-    }
-
-    public void setZone(Integer zone) {
-        this.zone = zone;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
 }

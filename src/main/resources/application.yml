@@ -1,6 +1,8 @@
 server:
   port: 8101
 spring:
+    profiles:
+        active: dev
     datasource:
         name: test
         url: jdbc:mysql://39.106.206.72:3306/mcv
@@ -31,11 +33,17 @@ spring:
           min-idle: 1
           max-active: 1000
           max-wait: -1
-
+    jackson:
+        default-property-inclusion: non_null #空值不返回
+    output:
+        ansi:
+          enabled: DETECT
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.ysc.device.service.domain.entities  # 注意：对应实体类的路径
-
+  # spring boot集成mybatis的方式打印sql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #pagehelper分页插件
 pagehelper:
     helperDialect: mysql

@@ -1,7 +1,9 @@
 package com.ysc.device.service.domain.enums;
 
 import com.ysc.device.service.exception.BaseExceptionCode;
-
+/**
+ * @author yusicong
+ */
 public enum ErrorCodeEnum implements BaseExceptionCode {
     SYStem_ERROR_1("60001","无token"),
     SYStem_ERROR_2("60002","token获取失败"),

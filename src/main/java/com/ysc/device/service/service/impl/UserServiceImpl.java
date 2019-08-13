@@ -1,18 +1,15 @@
 package com.ysc.device.service.service.impl;
 
-import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.entities.BaseEntity;
 import com.ysc.device.service.domain.entities.UserEntity;
 import com.ysc.device.service.domain.enums.AuthTypeEnum;
 import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
-import com.ysc.device.service.domain.enums.MOBSmsEnum;
+import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.response.BaseResponse;
-import com.ysc.device.service.domain.response.SMSResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
 import com.ysc.device.service.service.UserService;
 import com.ysc.device.service.service.impl.abs.AbsServiceImpl;
 import com.ysc.device.service.utils.JsonUtils;
-import com.ysc.device.service.utils.SmsUtils;
 import com.ysc.device.service.utils.TokenUtils;
 import com.ysc.device.service.utils.UserUtils;
 import org.apache.commons.lang.StringUtils;
@@ -41,21 +38,11 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
             baseResponse.setErrorMessage(BaseErrorCodeEnum.REGISTER_STATUS_2.getText());
             return baseResponse;
         }
-        if (registerRequest.getCode() != 96500909) {
-            SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
-            smsCodeValidateRequest.setCode(registerRequest.getCode());
-            smsCodeValidateRequest.setMobile(registerRequest.getMobile());
-            smsCodeValidateRequest.setZone(registerRequest.getZone());
-            SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
-            /**验证码校验失败*/
-            if (smsResponse.getStatus() != 200) {
-                baseResponse.setSuccess(false);
-                baseResponse.setErrorCode(smsResponse.getStatus() + "");
-                baseResponse.setErrorMessage(MOBSmsEnum.getText(smsResponse.getStatus()));
-                return baseResponse;
-            }
+        /**验证码校验*/
+        BaseResponse verificationCodeCheckResponse = verificationCodeCheck(registerRequest.getCode(), registerRequest.getMobile(), registerRequest.getZone());
+        if (!verificationCodeCheckResponse.isSuccess()) {
+            return verificationCodeCheckResponse;
         }
-
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(registerRequest), UserEntity.class);
         userEntity.setUserUuid(UserUtils.getRandomUuid());
         userEntity.setNickName(UserUtils.getRandomName());
@@ -73,15 +60,14 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse loginByMobile(LoginByMobileRequest request) {
+        BaseResponse<UserEntity> baseResponse = new BaseResponse<>();
         UserEntity userEntity = userInfoMapper.findUserByPhone(request.getMobile());
-        BaseResponse baseResponse = new BaseResponse();
         /**判断用户是否存在*/
-        if (null == userEntity) {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_2.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_2.getText());
-            return baseResponse;
+        BaseResponse userIsExistByMobileResponse = userIsExistByMobile(userEntity);
+        if (!userIsExistByMobileResponse.isSuccess()) {
+            return userIsExistByMobileResponse;
         }
+
         /**判断密码是否正确 正确*/
         if (request.getPassword().equals(userEntity.getPassword())) {
             userEntity.setToken(TokenUtils.getToken(userEntity));
@@ -103,9 +89,9 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse loginByOther(LoginByOtherRequest request) {
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<BaseEntity> baseResponse = new BaseResponse<BaseEntity>();
         /**qq登陆*/
-        if (AuthTypeEnum.AUTH_TYPE_ENUM_2.getValue() == request.getAuthType()) {
+        if (AuthTypeEnum.AUTH_TYPE_ENUM_2.getValue().equals(request.getAuthType())) {
             /**用户不存在 自动注册*/
             UserEntity user = userInfoMapper.findUserByQqOpenId(request.getOpenid());
             if (null == user) {
@@ -113,9 +99,9 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
                 userEntity.setAuthType(request.getAuthType());
                 userEntity.setUserUuid(UserUtils.getRandomUuid());
                 userEntity.setQqOpenId(request.getOpenid());
-                userEntity.setImageUrl(null != request.getImageUrl() ? request.getImageUrl() : null);
-                userEntity.setNickName(null != request.getNickName() ? request.getNickName() : UserUtils.getRandomName());
-                userEntity.setSex(null != request.getSex() ? request.getSex() : null);
+                userEntity.setImageUrl(request.getImageUrl());
+                userEntity.setNickName((null != request.getNickName()) ? request.getNickName() : UserUtils.getRandomName());
+                userEntity.setSex(request.getSex());
                 /**注册成功*/
                 if (1 == userInfoMapper.insertUser(userEntity)) {
                     /**生成token*/
@@ -144,7 +130,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         }
 
         /**微信登陆*/
-        if (AuthTypeEnum.AUTH_TYPE_ENUM_3.getValue() == request.getAuthType()) {
+        if (AuthTypeEnum.AUTH_TYPE_ENUM_3.getValue().equals(request.getAuthType())) {
             /**用户不存在 自动注册*/
             UserEntity user = userInfoMapper.findUserByWeChatOpenId(request.getOpenid());
             if (null == user) {
@@ -152,9 +138,9 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
                 userEntity.setAuthType(request.getAuthType());
                 userEntity.setUserUuid(UserUtils.getRandomUuid());
                 userEntity.setWechatOpenId(request.getOpenid());
-                userEntity.setImageUrl(null != request.getImageUrl() ? request.getImageUrl() : null);
-                userEntity.setNickName(null != request.getNickName() ? request.getNickName() : UserUtils.getRandomName());
-                userEntity.setSex(null != request.getSex() ? request.getSex() : null);
+                userEntity.setImageUrl(request.getImageUrl());
+                userEntity.setNickName((null != request.getNickName()) ? request.getNickName() : UserUtils.getRandomName());
+                userEntity.setSex(request.getSex());
                 /**注册成功*/
                 if (1 == userInfoMapper.insertUser(userEntity)) {
                     BaseEntity baseEntity = new BaseEntity();
@@ -196,28 +182,16 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
     @Override
     public BaseResponse forgetPassword(ForgetPasswordRequest forgetPasswordRequest) {
         UserEntity userEntity = userInfoMapper.findUserByPhone(forgetPasswordRequest.getMobile());
-        BaseResponse baseResponse = new BaseResponse();
         /**判断用户是否存在*/
-        if (null == userEntity) {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_2.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_2.getText());
-            return baseResponse;
+        BaseResponse userIsExistByMobileResponse = userIsExistByMobile(userEntity);
+        if (!userIsExistByMobileResponse.isSuccess()) {
+            return userIsExistByMobileResponse;
         }
-        /**校验验证码*/
-        if (forgetPasswordRequest.getCode() != 96500909) {
-            SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();
-            smsCodeValidateRequest.setCode(forgetPasswordRequest.getCode());
-            smsCodeValidateRequest.setMobile(forgetPasswordRequest.getMobile());
-            smsCodeValidateRequest.setZone(forgetPasswordRequest.getZone());
-            SMSResponse smsResponse = SmsUtils.smsCodeValidated(smsCodeValidateRequest);
-            /**验证码校验失败*/
-            if (smsResponse.getStatus() != 200) {
-                baseResponse.setSuccess(false);
-                baseResponse.setErrorCode(smsResponse.getStatus() + "");
-                baseResponse.setErrorMessage(MOBSmsEnum.getText(smsResponse.getStatus()));
-                return baseResponse;
-            }
+        BaseResponse baseResponse = new BaseResponse();
+        /**验证码校验*/
+        BaseResponse verificationCodeCheckResponse = verificationCodeCheck(forgetPasswordRequest.getCode(), forgetPasswordRequest.getMobile(), forgetPasswordRequest.getZone());
+        if (!verificationCodeCheckResponse.isSuccess()) {
+            return verificationCodeCheckResponse;
         }
         /**新密码与旧密码相同*/
         if (forgetPasswordRequest.getPassword().equals(userEntity.getPassword())) {
@@ -276,11 +250,11 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse modifyUserinfo(UpdateUserInfoRequest updateUserInfoRequest) {
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<UserEntity> baseResponse = new BaseResponse<>();
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(updateUserInfoRequest), UserEntity.class);
 
         BaseResponse isDiff = userinfoIsDifferent(userEntity);
-        if (!isDiff.isSuccess()){
+        if (!isDiff.isSuccess()) {
             return isDiff;
         }
         if (1 == userInfoMapper.updateUserByUuid(userEntity)) {

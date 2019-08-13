@@ -4,8 +4,9 @@ import com.ysc.device.service.domain.request.SyncDataRequest;
 import com.ysc.device.service.domain.response.BaseResponse;
 
 /**
- * Create by yusicong
+ * Create by idea
  * Date 2019/7/17 15:18
+ * @author yusicong
  */
 public interface CountService {
 

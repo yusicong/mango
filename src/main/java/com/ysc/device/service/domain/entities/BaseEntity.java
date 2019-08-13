@@ -1,10 +1,9 @@
 package com.ysc.device.service.domain.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@Data
 public class BaseEntity {
-
     /**
      *创建时间
      * */
@@ -19,28 +18,4 @@ public class BaseEntity {
      *token
      * */
     private String token;
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }

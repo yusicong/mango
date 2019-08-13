@@ -1,8 +1,8 @@
 package com.ysc.device.service.domain.enums;
-
-
-
-
+/**
+ * @author yusicong
+ * 用户登录类型
+ */
 public enum AuthTypeEnum implements DictEnum {
 
     AUTH_TYPE_ENUM_1(1, "mobile"),

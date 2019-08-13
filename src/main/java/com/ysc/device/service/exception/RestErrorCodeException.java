@@ -1,7 +1,7 @@
 package com.ysc.device.service.exception;
 
 /**
- * @Author wusheng
+ * @author yusicong
  * @Date 2017/7/20
  * @Time 下午14:43
  * @Description

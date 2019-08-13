@@ -3,7 +3,7 @@ package com.ysc.device.service.exception;
 /**
  *
  *
- * @Author Chase Lv(蛰龙)
+ * @author yusicong
  * @Date 2017/7/6
  * @Time 下午2:54
  * @Description

@@ -1,9 +1,12 @@
 package com.ysc.device.service.domain.entities;
 
+import lombok.Data;
+
 /**
- * Create by yusicong
+ * Create by idea
  * Date 2019/7/17 14:50
  */
+@Data
 public class SyncDataEntity extends BaseEntity {
     /**
      * 本条数据唯一标识
@@ -24,36 +27,4 @@ public class SyncDataEntity extends BaseEntity {
      * 设备唯一标识
      */
     private String deviceUuid;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getUserUuid() {
-        return userUuid;
-    }
-
-    public void setUserUuid(String userUuid) {
-        this.userUuid = userUuid;
-    }
-
-    public String getDeviceUuid() {
-        return deviceUuid;
-    }
-
-    public void setDeviceUuid(String deviceUuid) {
-        this.deviceUuid = deviceUuid;
-    }
 }
