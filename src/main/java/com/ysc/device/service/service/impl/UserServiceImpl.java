@@ -2,8 +2,8 @@ package com.ysc.device.service.service.impl;
 
 import com.ysc.device.service.domain.entities.base.BaseEntity;
 import com.ysc.device.service.domain.entities.UserEntity;
-import com.ysc.device.service.domain.enums.AuthTypeEnum;
-import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
+import com.ysc.device.service.domain.enumes.AuthTypeEnum;
+import com.ysc.device.service.domain.enumes.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.request.*;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.repository.UserInfoMapper;
@@ -31,12 +31,8 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse register(RegisterRequest registerRequest) {
-        BaseResponse baseResponse = new BaseResponse();
         if (!StringUtils.isBlank(userInfoMapper.findPasswordByPhone(registerRequest.getMobile()))) {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.REGISTER_STATUS_2.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.REGISTER_STATUS_2.getText());
-            return baseResponse;
+            return BaseResponse.createFailResult(BaseErrorCodeEnum.REGISTER_STATUS_2);
         }
         /**验证码校验*/
         BaseResponse verificationCodeCheckResponse = verificationCodeCheck(registerRequest.getCode(), registerRequest.getMobile(), registerRequest.getZone());
@@ -47,20 +43,13 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         userEntity.setUserUuid(UserUtils.getRandomUuid());
         userEntity.setNickName(UserUtils.getRandomName());
         if (1 != userInfoMapper.insertUser(userEntity)) {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.REGISTER_STATUS_2.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.REGISTER_STATUS_2.getText());
-            return baseResponse;
+            return BaseResponse.createFailResult(BaseErrorCodeEnum.REGISTER_STATUS_2);
         }
-        baseResponse.setSuccess(true);
-        baseResponse.setErrorCode(BaseErrorCodeEnum.REGISTER_STATUS_1.getValue() + "");
-        baseResponse.setErrorMessage(BaseErrorCodeEnum.REGISTER_STATUS_1.getText());
-        return baseResponse;
+        return BaseResponse.createSuccessResult(null,BaseErrorCodeEnum.REGISTER_STATUS_1);
     }
 
     @Override
     public BaseResponse loginByMobile(LoginByMobileRequest request) {
-        BaseResponse<UserEntity> baseResponse = new BaseResponse<>();
         UserEntity userEntity = userInfoMapper.findUserByPhone(request.getMobile());
         /**判断用户是否存在*/
         BaseResponse userIsExistByMobileResponse = userIsExistByMobile(userEntity);
@@ -72,106 +61,47 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         if (request.getPassword().equals(userEntity.getPassword())) {
             userEntity.setToken(TokenUtils.getToken(userEntity));
             userEntity.setPassword(null);
-            baseResponse.setSuccess(true);
-            baseResponse.setData(userEntity);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_1.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_1.getText());
-            return baseResponse;
+            return BaseResponse.createSuccessResult(userEntity,BaseErrorCodeEnum.LOGIN_STATUS_1);
         }
         /**错误*/
         else {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_3.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_3.getText());
-            return baseResponse;
+            return BaseResponse.createFailResult(BaseErrorCodeEnum.LOGIN_STATUS_3);
         }
     }
 
     @Override
     public BaseResponse loginByOther(LoginByOtherRequest request) {
-        BaseResponse<BaseEntity> baseResponse = new BaseResponse<BaseEntity>();
         /**qq登陆*/
         if (AuthTypeEnum.AUTH_TYPE_ENUM_2.getValue().equals(request.getAuthType())) {
-            /**用户不存在 自动注册*/
             UserEntity user = userInfoMapper.findUserByQqOpenId(request.getOpenid());
-            if (null == user) {
-                UserEntity userEntity = new UserEntity();
-                userEntity.setAuthType(request.getAuthType());
-                userEntity.setUserUuid(UserUtils.getRandomUuid());
-                userEntity.setQqOpenId(request.getOpenid());
-                userEntity.setImageUrl(request.getImageUrl());
-                userEntity.setNickName((null != request.getNickName()) ? request.getNickName() : UserUtils.getRandomName());
-                userEntity.setSex(request.getSex());
-                /**注册成功*/
-                if (1 == userInfoMapper.insertUser(userEntity)) {
-                    /**生成token*/
-                    userEntity.setToken(TokenUtils.getToken(userEntity));
-                    baseResponse.setSuccess(true);
-                    baseResponse.setData(userEntity);
-                    baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_1.getValue() + "");
-                    baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_1.getText());
-                    return baseResponse;
-                } else {
-                    baseResponse.setSuccess(false);
-                    baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_5.getValue() + "");
-                    baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_5.getText());
-                    return baseResponse;
-                }
-            }
-            /**用户存在正常登陆*/
-            else {
-                user.setToken(TokenUtils.getToken(user));
-                baseResponse.setSuccess(true);
-                baseResponse.setData(user);
-                baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_1.getValue() + "");
-                baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_1.getText());
-                return baseResponse;
-            }
+            return autoRegister(request, user);
         }
-
         /**微信登陆*/
         if (AuthTypeEnum.AUTH_TYPE_ENUM_3.getValue().equals(request.getAuthType())) {
-            /**用户不存在 自动注册*/
             UserEntity user = userInfoMapper.findUserByWeChatOpenId(request.getOpenid());
-            if (null == user) {
-                UserEntity userEntity = new UserEntity();
-                userEntity.setAuthType(request.getAuthType());
-                userEntity.setUserUuid(UserUtils.getRandomUuid());
-                userEntity.setWechatOpenId(request.getOpenid());
-                userEntity.setImageUrl(request.getImageUrl());
-                userEntity.setNickName((null != request.getNickName()) ? request.getNickName() : UserUtils.getRandomName());
-                userEntity.setSex(request.getSex());
-                /**注册成功*/
-                if (1 == userInfoMapper.insertUser(userEntity)) {
-                    BaseEntity baseEntity = new BaseEntity();
-                    /**生成token*/
-                    baseEntity.setToken(TokenUtils.getToken(userEntity));
-                    baseResponse.setSuccess(true);
-                    baseResponse.setData(baseEntity);
-                    baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_1.getValue() + "");
-                    baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_1.getText());
-                    return baseResponse;
-                } else {
-                    baseResponse.setSuccess(false);
-                    baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_5.getValue() + "");
-                    baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_5.getText());
-                    return baseResponse;
-                }
-            }
-            /**用户存在正常登陆*/
-            else {
-                System.out.println("用户存在");
-                BaseEntity baseEntity = new BaseEntity();
-                /**生成token*/
-                baseEntity.setToken(TokenUtils.getToken(user));
-                baseResponse.setSuccess(true);
-                baseResponse.setData(baseEntity);
-                baseResponse.setErrorCode(BaseErrorCodeEnum.LOGIN_STATUS_1.getValue() + "");
-                baseResponse.setErrorMessage(BaseErrorCodeEnum.LOGIN_STATUS_1.getText());
-                return baseResponse;
-            }
+            return autoRegister(request, user);
         }
         return null;
+    }
+
+    /**
+     * 自动注册流程
+     */
+    private BaseResponse autoRegister(LoginByOtherRequest request, UserEntity user) {
+        /**用户不存在 自动注册*/
+        if (null == user) {
+            UserEntity userEntity = loginRequestToUserEntity(request);
+            /**注册成功*/
+            if (1 == userInfoMapper.insertUser(userEntity)) {
+                return buildLoginSuccessResponse(userEntity);
+            } else {
+                return BaseResponse.createFailResult(BaseErrorCodeEnum.LOGIN_STATUS_5);
+            }
+        }
+        /**用户存在正常登陆*/
+        else {
+            return buildLoginSuccessResponse(user);
+        }
     }
 
     @Override
@@ -187,7 +117,6 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         if (!userIsExistByMobileResponse.isSuccess()) {
             return userIsExistByMobileResponse;
         }
-        BaseResponse baseResponse = new BaseResponse();
         /**验证码校验*/
         BaseResponse verificationCodeCheckResponse = verificationCodeCheck(forgetPasswordRequest.getCode(), forgetPasswordRequest.getMobile(), forgetPasswordRequest.getZone());
         if (!verificationCodeCheckResponse.isSuccess()) {
@@ -195,22 +124,13 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         }
         /**新密码与旧密码相同*/
         if (forgetPasswordRequest.getPassword().equals(userEntity.getPassword())) {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_1.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_1.getText());
-            return baseResponse;
+            return BaseResponse.createFailResult(BaseErrorCodeEnum.UPDATE_STATUS_1);
         }
         userEntity.setPassword(forgetPasswordRequest.getPassword());
         if (1 == userInfoMapper.updateUserByPhone(userEntity)) {
-            baseResponse.setSuccess(true);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_2.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_2.getText());
-            return baseResponse;
+            return BaseResponse.createSuccessResult(null,BaseErrorCodeEnum.UPDATE_STATUS_2);
         } else {
-            baseResponse.setSuccess(false);
-            baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_3.getValue() + "");
-            baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_3.getText());
-            return baseResponse;
+            return BaseResponse.createFailResult(BaseErrorCodeEnum.UPDATE_STATUS_3);
         }
     }
 
@@ -249,7 +169,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
     }
 
     @Override
-    public BaseResponse modifyUserinfo(UpdateUserInfoRequest updateUserInfoRequest) {
+    public BaseResponse modifyUserInfo(UpdateUserInfoRequest updateUserInfoRequest) {
         BaseResponse<UserEntity> baseResponse = new BaseResponse<>();
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(updateUserInfoRequest), UserEntity.class);
 

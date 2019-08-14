@@ -1,4 +1,5 @@
-package com.ysc.device.service.domain.enums;
+package com.ysc.device.service.domain.enumes;
+
 /**
  * @author yusicong
  * @date 2016/10/31

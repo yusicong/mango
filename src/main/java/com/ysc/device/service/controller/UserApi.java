@@ -16,27 +16,36 @@ public class UserApi {
     @Autowired
     UserService userService;
 
-    /**手机登录*/
+    /**
+     * 手机登录
+     */
     @ControllerLogger
     @PostMapping("/loginByMobile")
     public BaseResponse login(@RequestBody @Validated LoginByMobileRequest request) {
         return userService.loginByMobile(request);
     }
 
-    /**第三方登陆*/
+    /**
+     * 第三方登陆
+     */
     @ControllerLogger
     @PostMapping("/loginByOther")
     public BaseResponse loginByOther(@RequestBody @Validated LoginByOtherRequest request) {
         return userService.loginByOther(request);
     }
-    /**手机号注册*/
+
+    /**
+     * 手机号注册
+     */
     @ControllerLogger
     @PostMapping("/register")
     public BaseResponse register(@RequestBody @Validated RegisterRequest user) {
         return userService.register(user);
     }
 
-    /**忘记密码*/
+    /**
+     * 忘记密码
+     */
     @ControllerLogger
     @PostMapping("/forgetP")
     public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordRequest forgetPasswordRequest) {
@@ -50,7 +59,9 @@ public class UserApi {
         return "你已通过验证";
     }
 
-    /**获取用户信息*/
+    /**
+     * 获取用户信息
+     */
     @ControllerLogger
     @Application.UserLoginToken
     @PostMapping("/getUserInfo")
@@ -58,11 +69,13 @@ public class UserApi {
         return userService.getUserInfo(queryUserInfoRequest);
     }
 
-    /**修改用户信息*/
+    /**
+     * 修改用户信息
+     */
     @ControllerLogger
     @Application.UserLoginToken
-    @PostMapping("/modifyUserinfo")
-    public BaseResponse modifyUserinfo(@RequestBody @Validated UpdateUserInfoRequest updateUserInfoRequest) {
-        return userService.modifyUserinfo(updateUserInfoRequest);
+    @PostMapping("/modifyUserInfo")
+    public BaseResponse modifyUserInfo(@RequestBody @Validated UpdateUserInfoRequest updateUserInfoRequest) {
+        return userService.modifyUserInfo(updateUserInfoRequest);
     }
 }

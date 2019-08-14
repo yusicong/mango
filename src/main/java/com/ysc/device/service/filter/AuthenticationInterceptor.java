@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.ysc.device.service.Application;
 import com.ysc.device.service.domain.entities.UserEntity;
-import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
+import com.ysc.device.service.domain.enumes.BaseErrorCodeEnum;
 import com.ysc.device.service.service.UserService;
 import com.ysc.device.service.utils.JsonUtils;
 import org.apache.commons.lang.StringUtils;

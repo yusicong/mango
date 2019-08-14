@@ -5,7 +5,7 @@ import com.qcloud.cos.COSClient;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.ysc.device.service.domain.dto.UploadImgDTO;
-import com.ysc.device.service.domain.enums.BaseErrorCodeEnum;
+import com.ysc.device.service.domain.enumes.BaseErrorCodeEnum;
 import com.ysc.device.service.domain.response.BaseResponse;
 import com.ysc.device.service.service.FileService;
 import com.ysc.device.service.utils.JsonUtils;

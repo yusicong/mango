@@ -1,12 +1,12 @@
 package com.ysc.device.service.domain.entities;
 
 import lombok.Data;
-
+import com.ysc.device.service.domain.entities.base.BaseEntity;
 /**
  * @author yusicong
  */
 @Data
-public class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity{
 
     /**
      * 用户唯一ID

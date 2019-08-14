@@ -1,4 +1,4 @@
-package com.ysc.device.service.domain.enums;
+package com.ysc.device.service.domain.enumes;
 
 import com.ysc.device.service.exception.BaseExceptionCode;
 /**

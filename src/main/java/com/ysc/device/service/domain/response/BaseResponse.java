@@ -1,5 +1,6 @@
 package com.ysc.device.service.domain.response;
 
+import com.ysc.device.service.domain.enumes.BaseErrorCodeEnum;
 import com.ysc.device.service.exception.BaseException;
 import com.ysc.device.service.exception.BaseExceptionCode;
 
@@ -7,11 +8,7 @@ import java.io.Serializable;
 
 /**
  * BaseResponse
- *
- * @Author Chase Lv(蛰龙)
- * @Date 2017/7/7
- * @Time 上午7:30
- * @Description
+ * @author yusicong
  */
 public class BaseResponse<T> implements Serializable {
 
@@ -91,6 +88,12 @@ public class BaseResponse<T> implements Serializable {
         this.setErrorTips(errorCode.getErrorTips());
         return this;
     }
+    public BaseResponse<T> fail(BaseErrorCodeEnum errorCode) {
+        this.setSuccess(false);
+        this.setErrorCode(errorCode.getValue()+"");
+        this.setErrorMessage(errorCode.getText());
+        return this;
+    }
 
     public BaseResponse<T> fail(BaseExceptionCode errorCode, String appendMessage) {
         this.setSuccess(false);
@@ -125,15 +128,31 @@ public class BaseResponse<T> implements Serializable {
         return rt.success(model);
     }
 
+    public static <T> BaseResponse<T> createSuccessResult(T model, BaseErrorCodeEnum baseErrorCodeEnum) {
+        BaseResponse<T> rt = new BaseResponse<T>();
+        rt.setErrorCode(baseErrorCodeEnum.getValue()+"");
+        rt.setErrorMessage(baseErrorCodeEnum.getText());
+        return rt.success(model);
+    }
     /**
      * 创建失败的结果
      * 不存在附加错误信息的情况下
      *
      * @param errorCode 错误编码
-     * @param isRetry   是否重试
      * @return 结果对象
      */
     public static <T> BaseResponse<T> createFailResult(BaseExceptionCode errorCode) {
+        BaseResponse<T> rt = new BaseResponse<T>();
+        return rt.fail(errorCode);
+    }
+    /**
+     * 创建失败的结果
+     * 不存在附加错误信息的情况下
+     *
+     * @param errorCode 错误编码
+     * @return 结果对象
+     */
+    public static <T> BaseResponse<T> createFailResult(BaseErrorCodeEnum errorCode) {
         BaseResponse<T> rt = new BaseResponse<T>();
         return rt.fail(errorCode);
     }
@@ -144,7 +163,6 @@ public class BaseResponse<T> implements Serializable {
      *
      * @param errorCode     错误编码
      * @param appendMessage 附加错误消息
-     * @param isRetry       是否重试
      * @return 结果对象
      */
     public static <T> BaseResponse<T> createFailResult(BaseExceptionCode errorCode, String appendMessage) {
