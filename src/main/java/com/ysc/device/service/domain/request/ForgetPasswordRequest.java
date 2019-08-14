@@ -36,7 +36,7 @@ public class ForgetPasswordRequest {
     @NotNull
     private Integer code;
 
-    public String getPasswordMD5(){
+    public String buildMD5Password(){
         return DigestUtils.md5Hex(this.password);
     }
 

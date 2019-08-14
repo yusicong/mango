@@ -1,7 +1,7 @@
 package com.ysc.device.service.domain.entities;
 
-import lombok.Data;
 import com.ysc.device.service.domain.entities.base.BaseEntity;
+import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -111,8 +111,7 @@ public class UserEntity extends BaseEntity{
      */
     private Integer code;
 
-    public String getPasswordMD5(){
+    public String buildMD5Password(){
         return DigestUtils.md5Hex(this.password);
     }
-
 }

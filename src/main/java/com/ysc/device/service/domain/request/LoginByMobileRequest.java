@@ -15,7 +15,7 @@ public class LoginByMobileRequest {
     @NotBlank
     private String password;
 
-    public String getPasswordMD5(){
+    public String buildMD5Password(){
         return DigestUtils.md5Hex(this.password);
     }
 }

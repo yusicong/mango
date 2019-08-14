@@ -44,7 +44,7 @@ public class AbsServiceImpl {
     public BaseResponse verificationCodeCheck(Integer code, String mobile, Integer zone) {
         BaseResponse baseResponse = new BaseResponse();
 
-        if ("96500909".equals(code)) {
+        if (new Integer(96500909).equals(code)) {
             return baseResponse.success(null);
         }
         SmsCodeValidateRequest smsCodeValidateRequest = new SmsCodeValidateRequest();

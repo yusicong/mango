@@ -126,7 +126,7 @@ public class FileServiceImpl implements FileService {
             return BaseResponse.createSuccessResult(fileSrcList);
         } catch (Exception e) {
             log.info("uploadFile error:{}", e);
-            return BaseResponse.createFailResult(null);
+            return BaseResponse.createFailResult(null,null);
         }
 
     }

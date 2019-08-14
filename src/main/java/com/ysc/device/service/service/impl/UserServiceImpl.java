@@ -41,7 +41,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         UserEntity userEntity = JsonUtils.toObject(JsonUtils.toJSONString(registerRequest), UserEntity.class);
         userEntity.setUserUuid(UserUtils.getRandomUuid());
         userEntity.setNickName(UserUtils.getRandomName());
-        userEntity.setPassword(userEntity.getPasswordMD5());
+        userEntity.setPassword(userEntity.buildMD5Password());
         if (1 != userInfoMapper.insertUser(userEntity)) {
             return BaseResponse.createFailResult(BaseErrorCodeEnum.REGISTER_STATUS_2);
         }
@@ -58,7 +58,7 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
         }
 
         /**判断密码是否正确 正确*/
-        if (request.getPasswordMD5().equals(userEntity.getPassword())) {
+        if (request.buildMD5Password().equals(userEntity.getPassword())) {
             userEntity.setToken(TokenUtils.getToken(userEntity));
             userEntity.setPassword(null);
             return BaseResponse.createSuccessResult(userEntity,BaseErrorCodeEnum.LOGIN_STATUS_1);
@@ -123,10 +123,10 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
             return verificationCodeCheckResponse;
         }
         /**新密码与旧密码相同*/
-        if (forgetPasswordRequest.getPasswordMD5().equals(userEntity.getPassword())) {
+        if (forgetPasswordRequest.buildMD5Password().equals(userEntity.getPassword())) {
             return BaseResponse.createFailResult(BaseErrorCodeEnum.UPDATE_STATUS_1);
         }
-        userEntity.setPassword(forgetPasswordRequest.getPasswordMD5());
+        userEntity.setPassword(forgetPasswordRequest.buildMD5Password());
         if (1 == userInfoMapper.updateUserByPhone(userEntity)) {
             return BaseResponse.createSuccessResult(null,BaseErrorCodeEnum.UPDATE_STATUS_2);
         } else {
