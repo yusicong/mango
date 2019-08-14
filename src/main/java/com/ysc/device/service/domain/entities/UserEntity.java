@@ -2,6 +2,8 @@ package com.ysc.device.service.domain.entities;
 
 import lombok.Data;
 import com.ysc.device.service.domain.entities.base.BaseEntity;
+import org.apache.commons.codec.digest.DigestUtils;
+
 /**
  * @author yusicong
  */
@@ -108,5 +110,9 @@ public class UserEntity extends BaseEntity{
      * 注册验证码
      */
     private Integer code;
+
+    public String getPasswordMD5(){
+        return DigestUtils.md5Hex(this.password);
+    }
 
 }

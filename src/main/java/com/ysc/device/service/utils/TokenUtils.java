@@ -14,8 +14,7 @@ public class TokenUtils {
         if (StringUtils.isBlank(user.getPassword())){
             user.setPassword("a96500909");
         }
-        String token="";
-        token= JWT.create().withAudience(user.getUserUuid()+"")
+        String token = JWT.create().withAudience(user.getUserUuid()+"")
                 .sign(Algorithm.HMAC256(user.getPassword()));
         return token;
     }

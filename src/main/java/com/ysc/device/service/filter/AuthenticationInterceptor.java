@@ -65,7 +65,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     throw new RuntimeException(BaseErrorCodeEnum.LOGIN_STATUS_2.getValue()+"");
                 }
                 // 验证 token
-                System.out.println("password是："+user.getPassword());
                 if (StringUtils.isBlank(user.getPassword())){
                     user.setPassword("a96500909");
                 }

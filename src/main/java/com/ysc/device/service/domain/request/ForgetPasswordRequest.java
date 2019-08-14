@@ -1,6 +1,7 @@
 package com.ysc.device.service.domain.request;
 
 import lombok.Data;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -34,5 +35,9 @@ public class ForgetPasswordRequest {
      */
     @NotNull
     private Integer code;
+
+    public String getPasswordMD5(){
+        return DigestUtils.md5Hex(this.password);
+    }
 
 }
