@@ -47,7 +47,7 @@ public class UserApi {
      * 忘记密码
      */
     @ControllerLogger
-    @PostMapping("/forgetP")
+    @PostMapping("/forgetPassword")
     public BaseResponse forgetPassword(@RequestBody @Validated ForgetPasswordRequest forgetPasswordRequest) {
         return userService.forgetPassword(forgetPasswordRequest);
     }

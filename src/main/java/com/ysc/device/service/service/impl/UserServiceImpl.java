@@ -136,38 +136,37 @@ public class UserServiceImpl extends AbsServiceImpl implements UserService {
 
     @Override
     public BaseResponse getUserInfo(QueryUserInfoRequest queryUserInfoRequest) {
-        BaseResponse baseResponse = new BaseResponse();
-        UserEntity userEntity = new UserEntity();
+        UserEntity userEntity;
         if (!StringUtils.isBlank(queryUserInfoRequest.getMobile())) {
             userEntity = userInfoMapper.findUserByPhone(queryUserInfoRequest.getMobile());
             if (null != userEntity) {
-                return BaseResponse.createSuccessResult(userEntity);
+                return this.buildUserInfoResponse(userEntity);
             }
         }
         if (!StringUtils.isBlank(queryUserInfoRequest.getUserUuid())) {
             userEntity = userInfoMapper.findUserById(queryUserInfoRequest.getUserUuid());
             if (null != userEntity) {
-                return BaseResponse.createSuccessResult(userEntity);
+                return this.buildUserInfoResponse(userEntity);
             }
         }
         if (!StringUtils.isBlank(queryUserInfoRequest.getQqOpenId())) {
             userEntity = userInfoMapper.findUserByQqOpenId(queryUserInfoRequest.getQqOpenId());
             if (null != userEntity) {
-                return BaseResponse.createSuccessResult(userEntity);
+                return this.buildUserInfoResponse(userEntity);
             }
         }
         if (!StringUtils.isBlank(queryUserInfoRequest.getWechatOpenId())) {
             userEntity = userInfoMapper.findUserByWeChatOpenId(queryUserInfoRequest.getWechatOpenId());
             if (null != userEntity) {
-                return BaseResponse.createSuccessResult(userEntity);
+                return this.buildUserInfoResponse(userEntity);
             }
         }
-        baseResponse.setSuccess(false);
-        baseResponse.setErrorCode(BaseErrorCodeEnum.UPDATE_STATUS_3.getValue() + "");
-        baseResponse.setErrorMessage(BaseErrorCodeEnum.UPDATE_STATUS_3.getText());
-        return baseResponse;
+        return BaseResponse.createFailResult(BaseErrorCodeEnum.UPDATE_STATUS_3);
     }
-
+    public BaseResponse buildUserInfoResponse(UserEntity userEntity){
+            userEntity.setPassword(null);
+            return BaseResponse.createSuccessResult(userEntity);
+    }
     @Override
     public BaseResponse modifyUserInfo(UpdateUserInfoRequest updateUserInfoRequest) {
         BaseResponse<UserEntity> baseResponse = new BaseResponse<>();

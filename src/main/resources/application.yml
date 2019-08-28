@@ -2,7 +2,7 @@ server:
   port: 8101
 spring:
     profiles:
-        active: dev
+        active: prd
     datasource:
         name: test
         url: jdbc:mysql://39.106.206.72:3306/mcv
