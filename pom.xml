@@ -254,4 +254,11 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>c66bef533c92-snapshots</name>
+            <url>http://192.168.31.48:7002/artifactory/local-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
